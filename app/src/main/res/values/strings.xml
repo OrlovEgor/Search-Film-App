@@ -2,4 +2,5 @@
     <string name="app_name">Search-film-app</string>
     <string name="movies">Movies</string>
     <string name="favorite">Favorite</string>
+    <string name="search_by_tittle">Search by tittle</string>
 </resources>

@@ -12,5 +12,17 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <!-- Search View Style impl -->
+        <item name="searchViewStyle">@style/SearchViewMovie</item>
     </style>
+
+    <!-- Search View Style -->
+    <style name="SearchViewMovie" parent="">
+        <item name="submitBackground">@color/white</item>
+        <item name="queryBackground">@color/white</item>
+        <item name="searchIcon">@drawable/ic_search</item>
+        <item name="closeIcon">@drawable/ic_close</item>
+        <item name="iconifiedByDefault">false</item>
+    </style>
+
 </resources>
