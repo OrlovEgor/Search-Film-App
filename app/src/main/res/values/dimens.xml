@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="margin_8_dp">8dp</dimen>
-    <dimen name="margin_layout8">8dp</dimen>
-    <dimen name="elevation_2dp">2dp</dimen>
+    <dimen name="large_8dp">8dp</dimen>
+    <dimen name="medium_4dp">4dp</dimen>
+    <dimen name="low_2dp">2dp</dimen>
 </resources>

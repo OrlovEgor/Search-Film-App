@@ -3,4 +3,8 @@
     <string name="movies">Movies</string>
     <string name="favorite">Favorite</string>
     <string name="search_by_tittle">Search by tittle</string>
+
+    <string name="slogan">Ключ к будущему наконец-то найден. Ключ к будущему наконец-то найден</string>
+    <string name="genre">Жанр:</string>
+    <string name="Rating">Рейтинг Кинопоиск:</string>
 </resources>
