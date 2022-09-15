@@ -16,6 +16,7 @@
         <item name="searchViewStyle">@style/SearchViewMovie</item>
         <item name="progressBarStyle">@style/ProgressBarHorizontal</item>
         <item name="bottomNavigationStyle">@style/BottomNavigation</item>
+        <item name="titleTextStyle">@style/TittleTextStyle</item>
 
     </style>
 
@@ -33,7 +34,7 @@
     <style name="ProgressBarHorizontal" parent="Widget.AppCompat.ProgressBar.Horizontal">
         <item name="colorOnPrimary">@color/blue</item>
     </style>
-
+    <!-- Bottom nav style -->
     <style name="BottomNavigation" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="enforceTextAppearance">true</item>
         <item name="enforceMaterialTheme">true</item>
@@ -54,17 +55,34 @@
 
     <style name="customRoundedImageView" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/medium_4dp</item>
+        <item name="cornerSize">@dimen/low_2dp</item>
     </style>
 
-    <style name="mediumMarginTopStartEnd" parent="">
-        <item name="android:layout_marginTop">@dimen/medium_4dp</item>
-        <item name="android:layout_marginEnd">@dimen/medium_4dp</item>
-        <item name="android:layout_marginStart">@dimen/medium_4dp</item>
+    <!-- TextStyle -->
+    <style name="TittleTextStyle">
+        <item name="fontFamily">@font/source_sans_pro</item>
+        <item name="font">@font/source_sans_pro</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="textSixe" parent="">
-        <item name="android:textSize">25sp</item>
+    <style name="DefaultTextStyle">
+        <item name="fontFamily">@font/source_sans_pro</item>
+        <item name="font">@font/source_sans_pro</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="SupportBoldTextStyle.">
+        <item name="fontFamily">@font/source_sans_pro</item>
+        <item name="font">@font/source_sans_pro</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SupportTextStyle">
+        <item name="fontFamily">@font/source_sans_pro</item>
+        <item name="font">@font/source_sans_pro</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
 </resources>
