@@ -1,4 +1,4 @@
-package ru.orlovegor.search_film_app.ui
+package ru.orlovegor.search_film_app.data
 
 import android.os.Bundle
 import android.view.View

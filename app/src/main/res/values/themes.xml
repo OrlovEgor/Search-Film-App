@@ -72,6 +72,13 @@
         <item name="android:textSize">14sp</item>
     </style>
 
+    <style name="SupportBoldTextStyle">
+        <item name="fontFamily">@font/source_sans_pro</item>
+        <item name="font">@font/source_sans_pro</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="SupportBoldTextStyle.">
         <item name="fontFamily">@font/source_sans_pro</item>
         <item name="font">@font/source_sans_pro</item>

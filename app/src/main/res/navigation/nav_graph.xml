@@ -6,7 +6,7 @@
     app:startDestination="@id/moviesSearchFragment">
     <fragment
         android:id="@+id/moviesSearchFragment"
-        android:name="ru.orlovegor.search_film_app.ui.MoviesSearchFragment"
+        android:name="ru.orlovegor.search_film_app.presentation.movie_search.MoviesSearchFragment"
         android:label="MoviesSearchFragment"
         tools:layout="@layout/fragment_search_movies">
         <action
@@ -15,12 +15,12 @@
     </fragment>
     <fragment
         android:id="@+id/fullDescriptionFragment"
-        android:name="ru.orlovegor.search_film_app.ui.FullDescriptionFragment"
+        android:name="ru.orlovegor.search_film_app.data.FullDescriptionFragment"
         android:label="FullDescriptionFragment"
         tools:layout="@layout/fragment_full_description" />
     <fragment
         android:id="@+id/favoriteMoviesFragment"
-        android:name="ru.orlovegor.search_film_app.ui.FavoriteMoviesFragment"
+        android:name="ru.orlovegor.search_film_app.presentation.movie_favorite.FavoriteMoviesFragment"
         android:label="FavoriteMoviesFragment"
         tools:layout="@layout/fragment_favorite_movies"/>
 </navigation>
