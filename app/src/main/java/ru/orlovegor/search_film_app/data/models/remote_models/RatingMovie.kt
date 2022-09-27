@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class RatingMovie(
     @Json(name = "kp")
-    val kp : Double,
+    val kp : Double = 0.0,
     @Json(name = "imdb")
-    val imdb: Double
+    val imdb: Double = 0.0
 )

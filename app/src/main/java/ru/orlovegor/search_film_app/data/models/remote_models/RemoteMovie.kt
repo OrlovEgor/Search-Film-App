@@ -11,10 +11,12 @@ data class RemoteMovie(
     val title: String,
     @Json(name = "year")
     val releaseDate: String,
-    @Json(name = "slogan")
-    val description: String? = null,
+    @Json(name = "description")
+    val description: String? ,
+    @Json(name = "shortDescription")
+    val shortDescription: String?,
     @Json(name = "rating")
     val rating : RatingMovie,
-    @Json(name = "previewUrl")
-    val posterUrl: PosterMovie,
+    @Json(name = "poster")
+    val posterUrl: PosterMovie?,
     )

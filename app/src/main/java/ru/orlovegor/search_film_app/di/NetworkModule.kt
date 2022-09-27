@@ -17,6 +17,8 @@ object NetworkModule {
 
     private const val queryName = "token"
     private const val API_KEY = "N45CTXD-M7A4S5S-NZYANQ2-5JDQDRF"
+    private const val Base_URL = "https://api.kinopoisk.dev"
+
 
     @Provides
     @Singleton
@@ -29,9 +31,9 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(
-        okhttp: OkHttpClient
+        okhttp: OkHttpClient,
     ): Retrofit = Retrofit.Builder()
-        .baseUrl("https://api.kinopoisk.dev")
+        .baseUrl(Base_URL)
         .addConverterFactory(MoshiConverterFactory.create())
         .client(okhttp)
         .build()
