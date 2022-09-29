@@ -9,4 +9,5 @@
     <string name="Rating">Рейтинг Кинопоиск:</string>
     <string name="_10_09_2017">10.09.2017</string>
     <string name="not_destcriprion">Нет описания</string>
+    <string name="empty_release_date">----</string>
 </resources>
