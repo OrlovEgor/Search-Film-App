@@ -2,7 +2,6 @@ package ru.orlovegor.search_film_app.data.models
 
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.orlovegor.search_film_app.data.models.remote_models.RemoteMovie
 import ru.orlovegor.search_film_app.data.models.remote_models.RemoteSearchResult
 
 interface MovieApi {

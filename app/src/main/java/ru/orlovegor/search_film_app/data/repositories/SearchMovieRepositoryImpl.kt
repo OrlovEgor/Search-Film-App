@@ -6,8 +6,8 @@ import javax.inject.Inject
 class SearchMovieRepositoryImpl @Inject constructor(
     private val movieApi: MovieApi
 ) : SearchMovieRepository {
-    override suspend fun getMovie(tittle: String) = movieApi.getMovieByTittle(tittle)
 
+    override suspend fun getMovieByTittle(tittle: String) = movieApi.getMovieByTittle(tittle)
 
 
 

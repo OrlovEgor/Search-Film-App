@@ -7,31 +7,39 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import ru.orlovegor.search_film_app.data.models.remote_models.RemoteMovie
-import ru.orlovegor.search_film_app.data.repositories.SearchMovieRepositoryImpl
+import ru.orlovegor.search_film_app.data.models.Movie
+import ru.orlovegor.search_film_app.data.models.remote_models.MovieDto
+import ru.orlovegor.search_film_app.domain.GetMovieByTittleUsesCase
+import java.util.ArrayList
 import javax.inject.Inject
 
 
 @HiltViewModel
-class MovieSearchViewModel@Inject constructor(private val searchRepository: SearchMovieRepositoryImpl) : ViewModel() {
+class MovieSearchViewModel @Inject constructor(
+    private val getMovieByTittleUsesCase: GetMovieByTittleUsesCase
+) : ViewModel() {
+
 
     init {
         viewModelScope.launch {
             Log.d("SEARCH", "SCOPE STARTED")
             try {
                 val movies = search()
-                Log.d("SEARCH", "List movies = $movies")
-            }
-            catch (t: Throwable){
+                Log.d(
+                    "SEARCH",
+                    "Result = ${movies} "
+                )
+            } catch (t: Throwable) {
                 Log.d("SEARCH", "Error = ${t.message}")
             }
 
         }
     }
 
-    private suspend fun search(): List<RemoteMovie>{
-       return withContext(Dispatchers.IO){
-            searchRepository.getMovie("Начало", "name",false)
+    private suspend fun search(): ArrayList<Movie> {
+        return withContext(Dispatchers.IO) {
+
+            getMovieByTittleUsesCase.invoke("Начало")
         }
     }
 

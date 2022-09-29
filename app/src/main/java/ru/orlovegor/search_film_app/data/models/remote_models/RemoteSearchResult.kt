@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class RemoteSearchResult(
     @Json(name = "docs")
-    val listRemoteMovie: List<RemoteMovie>,
+    val listMovieDto: List<MovieDto>,
     @Json(name = "total")
     val totalResult: Int,
     @Json(name = "page")
