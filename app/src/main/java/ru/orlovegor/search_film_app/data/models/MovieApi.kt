@@ -12,7 +12,8 @@ interface MovieApi {
     suspend fun getMovieByTittle(
         @Query("search") tittle: String,
         @Query("page") @IntRange(from = 1) page: Int = 1,
-        @Query("limit") @IntRange(from = 1, to = MAX_PAGE_SIZE.toLong()) pageSize: Int = DEFAULT_PAGE_SIZE
+        @Query("limit") @IntRange(from = 1, to = MAX_PAGE_SIZE.toLong()) pageSize: Int = DEFAULT_PAGE_SIZE,
+        @Query("isStrict") isStrict: Boolean = false
     ): Response<RemoteSearchResult>
 
     //https://api.kinopoisk.dev/movie?token=&search=%D0%9C%D0%B0&page=1&field=name&limit=20&sortField[]=votes.kp&sortField[]=premiere.world&sortType[]=-1&sortType[]=-1
