@@ -1,10 +1,13 @@
 package ru.orlovegor.search_film_app.data.repositories
 
-import retrofit2.Response
-import ru.orlovegor.search_film_app.data.models.remote_models.RemoteSearchResult
+import androidx.paging.Pager
+import androidx.paging.PagingData
+import kotlinx.coroutines.flow.Flow
+import ru.orlovegor.search_film_app.data.models.remote_models.MovieDto
 
 
 interface SearchMovieRepository {
 
-    suspend fun getMovieByTittle(tittle: String): Response<RemoteSearchResult>
+   fun getMovieByTittlePaging(tittle: String): Pager<Int, MovieDto>
+
 }
