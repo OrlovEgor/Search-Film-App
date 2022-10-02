@@ -2,13 +2,14 @@ package ru.orlovegor.search_film_app.data.models
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+
 import retrofit2.HttpException
 import ru.orlovegor.search_film_app.data.models.remote_models.MovieDto
-import javax.inject.Inject
 
 
-class MoviesPageSource @Inject constructor(
+class MoviesPageSource (
      private val movieApi: MovieApi,
+     private val query: String
 ) : PagingSource<Int, MovieDto>() {
     override fun getRefreshKey(state: PagingState<Int, MovieDto>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
@@ -17,21 +18,25 @@ class MoviesPageSource @Inject constructor(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieDto> {
-       /* if (query.isEmpty()) {
+        if (query.isEmpty()) {
             return LoadResult.Page(emptyList(), prevKey = null, nextKey = null)
-        }*/
-        val page = params.key ?: 1 // to companion initial
+        }
+        val page = params.key ?: INITIAL_PAGE_NUMBER
         val pageSize = params.loadSize.coerceAtMost(MovieApi.MAX_PAGE_SIZE)
 
-        val response = movieApi.getMovieByTittle("Год", page, pageSize)
-        if (response.isSuccessful) {
+        val response = movieApi.getMovieByTittle(query, page, pageSize)
+        return if (response.isSuccessful) {
             val moviesDto = checkNotNull(response.body()).listMovieDto
             val nextKey = if (moviesDto.size < pageSize) null else page + 1
             val prevKey = if (page == 1) null else page - 1
-            return LoadResult.Page(moviesDto, prevKey, nextKey)
+            LoadResult.Page(moviesDto, prevKey, nextKey)
         } else {
-            return LoadResult.Error(HttpException(response))
+            LoadResult.Error(HttpException(response))
         }
+    }
+
+    interface Factory {
+        fun create( movieApi: MovieApi,query: String): MoviesPageSource
     }
 
     companion object {

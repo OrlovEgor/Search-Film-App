@@ -14,6 +14,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import ru.orlovegor.search_film_app.app.App
 import ru.orlovegor.search_film_app.data.models.MovieApi
+import ru.orlovegor.search_film_app.data.models.MoviesPageSource
 import ru.orlovegor.search_film_app.data.repositories.SearchMovieRepositoryImpl
 import javax.inject.Singleton
 
