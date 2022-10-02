@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="160dp"
     android:background="@color/white"
-    cardView:cardCornerRadius="@dimen/low_2dp"
+    cardView:cardCornerRadius="@dimen/medium_4dp"
     cardView:cardElevation="@dimen/medium_4dp">
 
 
@@ -19,7 +19,7 @@
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/item_movie_image_view"
             style="@style/customRoundedImageView"
-            android:layout_width="112dp"
+            android:layout_width="118dp"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
             cardView:layout_constraintStart_toStartOf="parent"
@@ -31,6 +31,7 @@
             style="@style/TittleTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:maxLines="3"
             android:layout_marginStart="@dimen/large_8dp"
             android:layout_marginEnd="@dimen/large_8dp"
             android:fontFamily="@font/source_sans_pro"
