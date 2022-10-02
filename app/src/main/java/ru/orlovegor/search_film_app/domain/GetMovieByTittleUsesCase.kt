@@ -8,6 +8,7 @@ import ru.orlovegor.search_film_app.data.repositories.SearchMovieRepositoryImpl
 import java.util.ArrayList
 import javax.inject.Inject
 
+/*
 class GetMovieByTittleUsesCase @Inject constructor(
     private val context: Context,
     private val searchMovieRepositoryImpl: SearchMovieRepositoryImpl
@@ -40,4 +41,4 @@ class GetMovieByTittleUsesCase @Inject constructor(
             }
 
         )
-}
+}*/
