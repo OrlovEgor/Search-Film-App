@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/fullDescriptionFragment"
-        android:name="ru.orlovegor.search_film_app.data.FullDescriptionFragment"
+        android:name="ru.orlovegor.search_film_app.presentation.full_description.FullDescriptionFragment"
         android:label="FullDescriptionFragment"
         tools:layout="@layout/fragment_full_description" />
     <fragment
