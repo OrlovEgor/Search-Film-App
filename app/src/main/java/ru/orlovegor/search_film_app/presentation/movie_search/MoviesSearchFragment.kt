@@ -45,6 +45,11 @@ class MoviesSearchFragment : Fragment(R.layout.fragment_search_movies) {
         with(binding.movieRecyclerView) {
             adapter = movieAdapter
             layoutManager = LinearLayoutManager(requireContext())
+            TODO("Добавить разделители + анимацию прокрутки." +
+                    " так же добавить плэйсхолдеры на загрузку изображения и ошибку загрузки избражения," +
+                    "ДОбавить интерцепторы в диай : на добаление хэдэра и на проверку подключения к сети. " +
+                    "обработать эти ошибки в пэйджинге и вывести пользователю снэкбар" +
+                    ". добавить текст вью при пустом списке с тектстом пока ничего не найдено.")
 
         }
     }
