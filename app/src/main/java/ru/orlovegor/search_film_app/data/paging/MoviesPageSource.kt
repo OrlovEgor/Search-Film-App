@@ -1,15 +1,16 @@
-package ru.orlovegor.search_film_app.data.models
+package ru.orlovegor.search_film_app.data.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 
 import retrofit2.HttpException
+import ru.orlovegor.search_film_app.data.models.MovieApi
 import ru.orlovegor.search_film_app.data.models.remote_models.MovieDto
 
 
 class MoviesPageSource (
-     private val movieApi: MovieApi,
-     private val query: String
+    private val movieApi: MovieApi,
+    private val query: String
 ) : PagingSource<Int, MovieDto>() {
     override fun getRefreshKey(state: PagingState<Int, MovieDto>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
@@ -36,7 +37,7 @@ class MoviesPageSource (
     }
 
     interface Factory {
-        fun create( movieApi: MovieApi,query: String): MoviesPageSource
+        fun create(movieApi: MovieApi, query: String): MoviesPageSource
     }
 
     companion object {
