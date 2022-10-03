@@ -1,9 +1,7 @@
 package ru.orlovegor.search_film_app.presentation.movie_search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.onEach
 import ru.orlovegor.search_film_app.R
 import ru.orlovegor.search_film_app.databinding.FragmentSearchMoviesBinding
 
@@ -44,7 +41,7 @@ class MoviesSearchFragment : Fragment(R.layout.fragment_search_movies) {
         }
     }
 
-    fun initList() {
+    private fun initList() {
         with(binding.movieRecyclerView) {
             adapter = movieAdapter
             layoutManager = LinearLayoutManager(requireContext())
