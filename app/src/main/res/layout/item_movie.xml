@@ -31,7 +31,7 @@
             style="@style/TittleTextStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:maxLines="3"
+            android:maxLines="2"
             android:layout_marginStart="@dimen/large_8dp"
             android:layout_marginEnd="@dimen/large_8dp"
             android:fontFamily="@font/source_sans_pro"
@@ -48,42 +48,22 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/large_8dp"
             android:layout_marginEnd="@dimen/large_8dp"
-            android:maxLines="2"
-            cardView:layout_constraintBottom_toTopOf="@+id/item_movie_genre_default_text"
+            android:maxLines="3"
+            cardView:layout_constraintBottom_toTopOf="@+id/item_movie_default_calendar"
             cardView:layout_constraintEnd_toEndOf="parent"
             cardView:layout_constraintStart_toEndOf="@+id/item_movie_image_view"
             cardView:layout_constraintTop_toBottomOf="@+id/item_movie_title_text"
             tools:text="@string/slogan" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/item_movie_genre_default_text"
-            style="@style/SupportBoldTextStyle."
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/large_8dp"
-            android:text="@string/genre"
-            cardView:layout_constraintBottom_toTopOf="@+id/item_movie_default_rating_text"
-            cardView:layout_constraintStart_toEndOf="@+id/item_movie_image_view"
-            cardView:layout_constraintTop_toBottomOf="@id/item_movie_slogan_text" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/item_movie_genre_text"
-            style="@style/SupportTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/low_2dp"
-            cardView:layout_constraintBaseline_toBaselineOf="@+id/item_movie_genre_default_text"
-            cardView:layout_constraintStart_toEndOf="@+id/item_movie_genre_default_text"
-            tools:text="драма" />
-
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/item_movie_default_calendar"
             android:layout_width="16dp"
             android:layout_height="16dp"
+            android:layout_marginStart="@dimen/large_8dp"
             android:layout_marginEnd="@dimen/low_2dp"
             app:srcCompat="@drawable/ic_calendar"
+            app:layout_constraintStart_toEndOf="@+id/item_movie_image_view"
             cardView:layout_constraintBottom_toTopOf="@+id/item_movie_default_rating_text"
-            cardView:layout_constraintEnd_toStartOf="@+id/item_movie_release_date_text"
             cardView:layout_constraintTop_toBottomOf="@id/item_movie_slogan_text"
             tools:ignore="ImageContrastCheck" />
 
@@ -92,9 +72,9 @@
             style="@style/SupportTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/large_8dp"
+            android:layout_marginStart="@dimen/large_8dp"
             cardView:layout_constraintBottom_toTopOf="@id/item_movie_default_rating_text"
-            cardView:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/item_movie_default_calendar"
             cardView:layout_constraintTop_toBottomOf="@+id/item_movie_slogan_text"
             tools:text="@string/_10_09_2017" />
 
@@ -107,7 +87,7 @@
             android:text="@string/Rating"
             cardView:layout_constraintBottom_toBottomOf="parent"
             cardView:layout_constraintStart_toEndOf="@+id/item_movie_image_view"
-            cardView:layout_constraintTop_toBottomOf="@id/item_movie_genre_default_text" />
+            cardView:layout_constraintTop_toBottomOf="@id/item_movie_default_calendar" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/item_movie_rating_text"
@@ -118,13 +98,13 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/item_movie_default_rating_text"
             cardView:layout_constraintBottom_toBottomOf="parent"
             cardView:layout_constraintStart_toEndOf="@+id/item_movie_default_rating_text"
-            cardView:layout_constraintTop_toBottomOf="@id/item_movie_genre_default_text"
+            cardView:layout_constraintTop_toBottomOf="@id/item_movie_default_calendar"
             tools:text="9,2" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/item_movie_favorite_checkbox"
-            android:layout_width="16dp"
-            android:layout_height="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/large_8dp"
             android:button="@drawable/checkbox_favorite"
             android:checked="false"
@@ -132,7 +112,7 @@
             android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/item_movie_genre_default_text" />
+            app:layout_constraintTop_toBottomOf="@id/item_movie_slogan_text" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
