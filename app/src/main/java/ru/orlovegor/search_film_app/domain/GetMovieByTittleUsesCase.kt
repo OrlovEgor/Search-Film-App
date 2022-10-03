@@ -1,24 +1,34 @@
 package ru.orlovegor.search_film_app.domain
 
 import android.content.Context
+import androidx.paging.PagingData
+import androidx.paging.map
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.*
 import ru.orlovegor.search_film_app.R
 import ru.orlovegor.search_film_app.data.models.Movie
 import ru.orlovegor.search_film_app.data.models.remote_models.MovieDto
-import ru.orlovegor.search_film_app.data.repositories.SearchMovieRepositoryImpl
-import java.util.ArrayList
+import ru.orlovegor.search_film_app.data.repositories.SearchMovieRepository
+import ru.orlovegor.search_film_app.di.IoDispatcher
 import javax.inject.Inject
 
-/*
+
 class GetMovieByTittleUsesCase @Inject constructor(
-    private val context: Context,
-    private val searchMovieRepositoryImpl: SearchMovieRepositoryImpl
+    @ApplicationContext private val context: Context,
+    private val searchMovieRepository: SearchMovieRepository,
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 
 ) {
-    suspend fun invoke(tittle: String): ArrayList<Movie> {
-        return searchMovieRepositoryImpl.getMovieByTittle(tittle).listMovieDto.map {
-            it.mapToMovie()
-        } as ArrayList<Movie>
+    @OptIn(ExperimentalCoroutinesApi::class)
+    suspend fun invoke(tittle: String): PagingData<MovieDto> {
+        return searchMovieRepository.getMovieByTittlePaging(tittle).flow
+            .mapLatest { pagingData -> pagingData.map { movieDto -> movieDto } }
+            .flowOn(ioDispatcher)
+            .first()
     }
+
 
     fun MovieDto.mapToMovie() =
         Movie(
@@ -41,4 +51,4 @@ class GetMovieByTittleUsesCase @Inject constructor(
             }
 
         )
-}*/
+}
