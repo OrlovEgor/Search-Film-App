@@ -22,15 +22,15 @@ class GetMovieByTittleUsesCase @Inject constructor(
 
 ) {
     @OptIn(ExperimentalCoroutinesApi::class)
-    suspend fun invoke(tittle: String): PagingData<MovieDto> {
+    suspend fun invoke(tittle: String): PagingData<Movie> {
         return searchMovieRepository.getMovieByTittlePaging(tittle).flow
-            .mapLatest { pagingData -> pagingData.map { movieDto -> movieDto } }
+            .mapLatest { pagingData -> pagingData.map { movieDto -> movieDto.mapToMovie() } }
             .flowOn(ioDispatcher)
             .first()
     }
 
 
-    fun MovieDto.mapToMovie() =
+    private fun MovieDto.mapToMovie() =
         Movie(
             id = this.id,
             title = this.title,

@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import ru.orlovegor.search_film_app.R
-import ru.orlovegor.search_film_app.data.models.remote_models.MovieDto
+import ru.orlovegor.search_film_app.data.models.Movie
 import ru.orlovegor.search_film_app.databinding.ItemMovieBinding
 
-class MovieAdapter(context: Context) : PagingDataAdapter<MovieDto, MovieAdapter.MovieViewHolder>(MovieDiffItemCallback()) {
+class MovieAdapter(context: Context) : PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(MovieDiffItemCallback()) {
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -28,14 +28,14 @@ class MovieAdapter(context: Context) : PagingDataAdapter<MovieDto, MovieAdapter.
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding by viewBinding(ItemMovieBinding::bind)
 
-        fun bind(movie: MovieDto) {
+        fun bind(movie: Movie) {
             with(binding) {
                 itemMovieTitleText.text = movie.title
                 itemMovieReleaseDateText.text = movie.releaseDate
-                itemMovieSloganText.text = movie.shortDescription
-                itemMovieRatingText.text = movie.rating.kp.toString()
+                itemMovieSloganText.text = movie.description
+                itemMovieRatingText.text = movie.rating.toString()
                 Glide.with(itemView)
-                    .load(movie.posterUrl?.poster)
+                    .load(movie.posterUrl)
                     .into(itemMovieImageView)
 
 
@@ -43,12 +43,12 @@ class MovieAdapter(context: Context) : PagingDataAdapter<MovieDto, MovieAdapter.
         }
     }
 
-    private class MovieDiffItemCallback : DiffUtil.ItemCallback<MovieDto>() {
-        override fun areItemsTheSame(oldItem: MovieDto, newItem: MovieDto): Boolean {
+    private class MovieDiffItemCallback : DiffUtil.ItemCallback<Movie>() {
+        override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: MovieDto, newItem: MovieDto): Boolean {
+        override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
             return oldItem.id == newItem.id
         }
 
