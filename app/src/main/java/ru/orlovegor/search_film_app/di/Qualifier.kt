@@ -15,4 +15,16 @@ annotation class IoDispatcher
 @Qualifier
 annotation class MainDispatcher
 
-// ---
+// --- Interceptors Qualifier
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class ApiKeyInterceptorOkHttpClient
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class LoggingInterceptorOkHttpClient
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class ConnectionInterceptorOkHttpClient
