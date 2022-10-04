@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils.loadAnimation
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,22 +14,25 @@ import ru.orlovegor.search_film_app.R
 import ru.orlovegor.search_film_app.data.models.Movie
 import ru.orlovegor.search_film_app.databinding.ItemMovieBinding
 
-class MovieAdapter(context: Context) : PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(MovieDiffItemCallback()) {
+class MovieAdapter(context: Context) :
+    PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(MovieDiffItemCallback()) {
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
+        holder.itemView.animation =
+            loadAnimation(holder.itemView.context, R.anim.animation_recycler)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(layoutInflater.inflate(R.layout.item_movie,parent,false))
+        return MovieViewHolder(layoutInflater.inflate(R.layout.item_movie, parent, false))
     }
 
     class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding by viewBinding(ItemMovieBinding::bind)
-
         fun bind(movie: Movie) {
+
             with(binding) {
                 itemMovieTitleText.text = movie.title
                 itemMovieReleaseDateText.text = movie.releaseDate
@@ -36,8 +40,9 @@ class MovieAdapter(context: Context) : PagingDataAdapter<Movie, MovieAdapter.Mov
                 itemMovieRatingText.text = movie.rating.toString()
                 Glide.with(itemView)
                     .load(movie.posterUrl)
+                    .placeholder(R.drawable.ic_picture_40)
+                    .error(R.drawable.ic_error_40)
                     .into(itemMovieImageView)
-
 
             }
         }
@@ -53,6 +58,5 @@ class MovieAdapter(context: Context) : PagingDataAdapter<Movie, MovieAdapter.Mov
         }
 
     }
-
 
 }
