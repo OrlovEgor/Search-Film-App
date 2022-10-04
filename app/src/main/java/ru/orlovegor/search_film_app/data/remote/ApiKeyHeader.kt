@@ -1,10 +1,9 @@
-package ru.orlovegor.search_film_app.di
+package ru.orlovegor.search_film_app.data.remote
 
 import okhttp3.Interceptor
 import okhttp3.Response
 
 class ApiKeyHeader(
-    private val queryName: String,
     private val queryHeader: String
 ) : Interceptor {
 
@@ -13,7 +12,7 @@ class ApiKeyHeader(
 
         val originalUrl = originalRequest.url //получаем его url
         val url = originalUrl.newBuilder().addQueryParameter(
-            queryName,
+            QUERY_NAME,
             queryHeader
         ) // добавляем в оригинальный url query параеметры
             .build()
@@ -24,5 +23,8 @@ class ApiKeyHeader(
                 .build()
 
         return chain.proceed(modifiedRequest) // отправляем его в выполнение
+    }
+    companion object {
+        private const val QUERY_NAME = "token"
     }
 }

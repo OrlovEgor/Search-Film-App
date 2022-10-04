@@ -1,10 +1,10 @@
-package ru.orlovegor.search_film_app.data.models
+package ru.orlovegor.search_film_app.data.remote
 
 import androidx.annotation.IntRange
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
-import ru.orlovegor.search_film_app.data.models.remote_models.RemoteSearchResult
+import ru.orlovegor.search_film_app.data.remote.models.RemoteSearchResult
 
 interface MovieApi {
 

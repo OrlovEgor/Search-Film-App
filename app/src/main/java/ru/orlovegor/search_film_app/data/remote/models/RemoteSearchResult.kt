@@ -1,8 +1,8 @@
-package ru.orlovegor.search_film_app.data.models.remote_models
+package ru.orlovegor.search_film_app.data.remote.models
 
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
-
+import ru.orlovegor.search_film_app.data.models.remote_models.MovieDto
 
 @JsonClass(generateAdapter = true)
 data class RemoteSearchResult(
