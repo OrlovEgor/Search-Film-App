@@ -1,14 +1,15 @@
 package ru.orlovegor.search_film_app.data.paging
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-
 import retrofit2.HttpException
-import ru.orlovegor.search_film_app.data.models.MovieApi
+import ru.orlovegor.search_film_app.data.remote.MovieApi
 import ru.orlovegor.search_film_app.data.models.remote_models.MovieDto
+import java.io.IOException
 
 
-class MoviesPageSource (
+class MoviesPageSource(
     private val movieApi: MovieApi,
     private val query: String
 ) : PagingSource<Int, MovieDto>() {
@@ -22,22 +23,27 @@ class MoviesPageSource (
         if (query.isEmpty()) {
             return LoadResult.Page(emptyList(), prevKey = null, nextKey = null)
         }
-        val page = params.key ?: INITIAL_PAGE_NUMBER
-        val pageSize = params.loadSize.coerceAtMost(MovieApi.MAX_PAGE_SIZE)
+        try {
+            val page = params.key ?: INITIAL_PAGE_NUMBER
+            val pageSize = params.loadSize.coerceAtMost(MovieApi.MAX_PAGE_SIZE)
+            val response = movieApi.getMovieByTittle(query, page, pageSize)
 
-        val response = movieApi.getMovieByTittle(query, page, pageSize)
-        return if (response.isSuccessful) {
-            val moviesDto = checkNotNull(response.body()).listMovieDto
-            val nextKey = if (moviesDto.size < pageSize) null else page + 1
-            val prevKey = if (page == 1) null else page - 1
-            LoadResult.Page(moviesDto, prevKey, nextKey)
-        } else {
-            LoadResult.Error(HttpException(response))
+                val moviesDto = checkNotNull(response.body()).listMovieDto
+                val nextKey = if (moviesDto.size < pageSize) null else page + 1
+                val prevKey = if (page == 1) null else page - 1
+            return    LoadResult.Page(moviesDto, prevKey, nextKey)
+            }
+         catch (e: IOException) {
+             Log.d("ERROR", "IOE ${e.message}")
+            return LoadResult.Error(e)
+        } catch (e: HttpException) {
+            Log.d("ERROR", "HTTP ${e.message}")
+            return LoadResult.Error(e)
+        } catch (t: Throwable) {
+            Log.d("ERROR", "Throwable ${t.message}")
+            return LoadResult.Error(t)
         }
-    }
 
-    interface Factory {
-        fun create(movieApi: MovieApi, query: String): MoviesPageSource
     }
 
     companion object {
