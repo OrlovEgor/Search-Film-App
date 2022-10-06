@@ -43,7 +43,6 @@ class MovieAdapter(context: Context) :
                     .placeholder(R.drawable.ic_picture_40)
                     .error(R.drawable.ic_error_40)
                     .into(itemMovieImageView)
-
             }
         }
     }
