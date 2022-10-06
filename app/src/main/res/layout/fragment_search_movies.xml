@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_margin="@dimen/large_8dp">
 
     <androidx.appcompat.widget.SearchView
@@ -20,25 +20,64 @@
 
     <ProgressBar
         android:id="@+id/movie_progress_bar_horizontal"
+        style="?attr/progressBarStyle"
         android:layout_width="0dp"
         android:layout_height="8dp"
         android:indeterminate="true"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/movie_search_view"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        style="?attr/progressBarStyle"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/movie_search_view" />
 
     <androidx.recyclerview.widget.RecyclerView
-        tools:listitem="@layout/item_movie"
         android:id="@+id/movie_recycler_view"
-        android:layout_marginTop="@dimen/large_8dp"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/movie_progress_bar_horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/large_8dp"
+        app:layout_constraintBottom_toTopOf="@id/error_text"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/movie_progress_bar_horizontal"
+        tools:listitem="@layout/item_movie" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/error_text"
+        style="@style/ErrorTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/medium_4dp"
+        android:text="@string/connection_error"
+        app:layout_constraintBottom_toTopOf="@+id/error_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/error_button"
+        style="@style/DefaultButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:layout_marginTop="@dimen/medium_4dp"
+        android:text="@string/retry"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/empty_text_text"
+        style="@style/ErrorTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/empty_text"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/error_view_group"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="error_text, error_button" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
