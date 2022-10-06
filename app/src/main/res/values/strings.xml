@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Search-film-app</string>
-    <string name="movies">Movies</string>
-    <string name="favorite">Favorite</string>
-    <string name="search_by_tittle">Search by tittle</string>
+    <string name="movies">Поиск</string>
+    <string name="favorite">Сохраненные</string>
+    <string name="search_by_tittle">Поиск по названию</string>
 
     <string name="slogan">Ключ к будущему наконец-то найден. Ключ к будущему наконец-то найден</string>
     <string name="genre">Жанр:</string>
@@ -10,4 +10,8 @@
     <string name="_10_09_2017">10.09.2017</string>
     <string name="not_destcriprion">Нет описания</string>
     <string name="empty_release_date">----</string>
+    <string name="no_connection">Нет подключения к интернету</string>
+    <string name="retry">Повторить</string>
+    <string name="connection_error">Ошибка подключения</string>
+    <string name="empty_text">Пока ничего не найдено.\nВведите название фильма</string>
 </resources>
