@@ -26,7 +26,6 @@ class MovieSearchViewModel @Inject constructor(
         .cachedIn(viewModelScope)
         .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
 
-
     fun setQuery(query: String) {
         viewModelScope.launch {
             _query.emit(query)
