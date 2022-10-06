@@ -16,7 +16,6 @@ interface MovieApi {
         @Query("isStrict") isStrict: Boolean = false
     ): Response<RemoteSearchResult>
 
-    //https://api.kinopoisk.dev/movie?token=&search=%D0%9C%D0%B0&page=1&field=name&limit=20&sortField[]=votes.kp&sortField[]=premiere.world&sortType[]=-1&sortType[]=-1
     companion object {
         const val DEFAULT_PAGE_SIZE = 10
         const val MAX_PAGE_SIZE = 15
