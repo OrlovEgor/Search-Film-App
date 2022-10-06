@@ -2,9 +2,7 @@ package ru.orlovegor.search_film_app.presentation.movie_search
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -14,7 +12,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import ru.orlovegor.search_film_app.R
@@ -32,29 +29,15 @@ class MoviesSearchFragment : Fragment(R.layout.fragment_search_movies) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel
         initList()
+        initSearchView()
+        initErrorViewGroup()
         lifecycleScope.launchWhenStarted {
             viewModel.movies.collectLatest(
                 movieAdapter::submitData
             )
-
-        }
-        initSearchView()
-        movieAdapter.addLoadStateListener { state ->
-            val refreshError = state.refresh
-            binding.movieProgressBarHorizontal.isVisible =
-                state.append == LoadState.Loading || state.refresh == LoadState.Loading
-
-            if (state.refresh is LoadState.Error || state.append is LoadState.Error){
-                Log.d("ERROR!!!!!!!!!!!!!!!!", "${refreshError.toString()}")
-                showSnack()
-
-            }
-
         }
     }
-
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun initList() {
@@ -69,17 +52,27 @@ class MoviesSearchFragment : Fragment(R.layout.fragment_search_movies) {
             adapter = movieAdapter
             layoutManager = LinearLayoutManager(requireContext())
             addItemDecoration(dividerDecorator)
-
-            /*TODO( " " +
-                    " +
-                    "обработать эти ошибки в пэйджинге и вывести пользователю снэкбар" +
-                    ". добавить текст вью при пустом списке с тектстом пока ничего не найдено.")*/
         }
     }
 
-    private fun showSnack(){
-        Snackbar.make(binding.root,getString(R.string.no_connection), Snackbar.LENGTH_LONG)
-            .show()
+    private fun initErrorViewGroup() {
+        binding.errorButton.setOnClickListener {
+            movieAdapter.retry()
+        }
+        lifecycleScope.launchWhenStarted {
+            movieAdapter.loadStateFlow.collect { loadState ->
+
+                binding.movieProgressBarHorizontal.isVisible =
+                    loadState.append == LoadState.Loading ||
+                            loadState.refresh == LoadState.Loading || loadState.prepend == LoadState.Loading
+
+                binding.errorViewGroup.isVisible =
+                    loadState.prepend is LoadState.Error ||
+                            loadState.append is LoadState.Error || loadState.refresh is LoadState.Error
+
+                binding.emptyTextText.isVisible = movieAdapter.itemCount < 1
+            }
+        }
     }
 
     private fun initSearchView() {
