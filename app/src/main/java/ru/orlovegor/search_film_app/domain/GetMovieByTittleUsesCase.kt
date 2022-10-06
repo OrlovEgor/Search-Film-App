@@ -30,7 +30,6 @@ class GetMovieByTittleUsesCase @Inject constructor(
                 .first()
     }
 
-
     private fun MovieDto.mapToMovie() =
         Movie(
             id = this.id,
@@ -50,6 +49,5 @@ class GetMovieByTittleUsesCase @Inject constructor(
                 this.posterUrl.poster.isNotBlank() -> this.posterUrl.poster
                 else -> this.posterUrl.imgUrl
             }
-
         )
 }
