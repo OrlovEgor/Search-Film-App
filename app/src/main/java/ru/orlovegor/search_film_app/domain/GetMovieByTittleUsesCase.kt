@@ -1,6 +1,7 @@
 package ru.orlovegor.search_film_app.domain
 
 import android.content.Context
+import android.util.Log
 import androidx.paging.PagingData
 import androidx.paging.map
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -23,10 +24,10 @@ class GetMovieByTittleUsesCase @Inject constructor(
 ) {
     @OptIn(ExperimentalCoroutinesApi::class)
     suspend fun invoke(tittle: String): PagingData<Movie> {
-        return searchMovieRepository.getMovieByTittlePaging(tittle).flow
-            .mapLatest { pagingData -> pagingData.map { movieDto -> movieDto.mapToMovie() } }
-            .flowOn(ioDispatcher)
-            .first()
+          return  searchMovieRepository.getMovieByTittlePaging(tittle).flow
+                .mapLatest { pagingData -> pagingData.map { movieDto -> movieDto.mapToMovie() } }
+                .flowOn(ioDispatcher)
+                .first()
     }
 
 
