@@ -17,7 +17,11 @@
         android:id="@+id/fullDescriptionFragment"
         android:name="ru.orlovegor.search_film_app.presentation.full_description.FullDescriptionFragment"
         android:label="FullDescriptionFragment"
-        tools:layout="@layout/fragment_full_description" />
+        tools:layout="@layout/fragment_full_description" >
+        <argument
+            android:name="movieId"
+            app:argType="long" />
+    </fragment>
     <fragment
         android:id="@+id/favoriteMoviesFragment"
         android:name="ru.orlovegor.search_film_app.presentation.movie_favorite.FavoriteMoviesFragment"
