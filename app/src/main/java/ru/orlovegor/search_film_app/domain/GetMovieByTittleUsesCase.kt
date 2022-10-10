@@ -1,16 +1,17 @@
 package ru.orlovegor.search_film_app.domain
 
 import android.content.Context
-import android.util.Log
 import androidx.paging.PagingData
 import androidx.paging.map
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.mapLatest
 import ru.orlovegor.search_film_app.R
 import ru.orlovegor.search_film_app.data.models.Movie
-import ru.orlovegor.search_film_app.data.models.remote_models.MovieDto
+import ru.orlovegor.search_film_app.data.remote.models.MovieDto
 import ru.orlovegor.search_film_app.data.repositories.SearchMovieRepository
 import ru.orlovegor.search_film_app.di.IoDispatcher
 import javax.inject.Inject
@@ -24,16 +25,25 @@ class GetMovieByTittleUsesCase @Inject constructor(
 ) {
     @OptIn(ExperimentalCoroutinesApi::class)
     suspend fun invoke(tittle: String): PagingData<Movie> {
-          return  searchMovieRepository.getMovieByTittlePaging(tittle).flow
+        return try {
+            searchMovieRepository.getMovieByTittlePaging(tittle).flow
                 .mapLatest { pagingData -> pagingData.map { movieDto -> movieDto.mapToMovie() } }
                 .flowOn(ioDispatcher)
                 .first()
+        } catch (t: Throwable) {
+            PagingData.empty()
+        }
     }
 
-    private fun MovieDto.mapToMovie() =
+     fun MovieDto.mapToMovie() =
         Movie(
             id = this.id,
             title = this.title,
+            posterUrl = when {
+                this.posterUrl == null -> ""
+                this.posterUrl.poster.isNotBlank() -> this.posterUrl.poster
+                else -> this.posterUrl.imgUrl
+            },
             releaseDate = releaseDate ?: context.resources.getString(R.string.empty_release_date),
             description = when {
                 !this.shortDescription.isNullOrBlank() -> this.shortDescription
@@ -44,10 +54,9 @@ class GetMovieByTittleUsesCase @Inject constructor(
                 this.rating.kp > 0.0 -> this.rating.kp
                 else -> this.rating.imdb
             },
-            posterUrl = when {
-                this.posterUrl == null -> ""
-                this.posterUrl.poster.isNotBlank() -> this.posterUrl.poster
-                else -> this.posterUrl.imgUrl
-            }
+            ageRestriction = this.ageRestriction?.age
+                ?: context.resources.getString(R.string.age_restriction),
+            similarMovieDto = this.similarMovieDto?.filterNotNull() ?: listOf()
+
         )
 }
