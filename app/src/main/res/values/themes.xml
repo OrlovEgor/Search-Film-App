@@ -79,6 +79,26 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="TittleTextStyleLarge">
+        <item name="fontFamily">@font/source_sans_pro</item>
+        <item name="font">@font/source_sans_pro</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DefaultTextStyleLarge">
+        <item name="fontFamily">@font/source_sans_pro</item>
+        <item name="font">@font/source_sans_pro</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="DefaultTextStyleLargeBold">
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/source_sans_pro</item>
+        <item name="font">@font/source_sans_pro</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="DefaultTextStyle">
         <item name="fontFamily">@font/source_sans_pro</item>
         <item name="font">@font/source_sans_pro</item>
