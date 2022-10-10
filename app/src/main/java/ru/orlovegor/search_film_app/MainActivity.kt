@@ -2,6 +2,7 @@ package ru.orlovegor.search_film_app
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -28,5 +29,11 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.bottomNavMenu.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener{
+            _, destination, _ -> if (destination.id == R.id.fullDescriptionFragment){
+                binding.bottomNavMenu.visibility = View.GONE
+            } else {
+                binding.bottomNavMenu.visibility = View.VISIBLE }
+            }
+        }
     }
-}
