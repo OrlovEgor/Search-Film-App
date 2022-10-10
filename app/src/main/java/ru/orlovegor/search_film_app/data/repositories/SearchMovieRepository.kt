@@ -1,9 +1,7 @@
 package ru.orlovegor.search_film_app.data.repositories
 
 import androidx.paging.Pager
-import androidx.paging.PagingData
-import kotlinx.coroutines.flow.Flow
-import ru.orlovegor.search_film_app.data.models.remote_models.MovieDto
+import ru.orlovegor.search_film_app.data.remote.models.MovieDto
 
 
 interface SearchMovieRepository {
