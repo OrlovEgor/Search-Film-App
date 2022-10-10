@@ -14,7 +14,10 @@ import ru.orlovegor.search_film_app.R
 import ru.orlovegor.search_film_app.data.models.Movie
 import ru.orlovegor.search_film_app.databinding.ItemMovieBinding
 
-class MovieAdapter(context: Context) :
+class MovieAdapter(
+    context: Context,
+    private val onItemClick: (movieId: Long) -> Unit
+) :
     PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(MovieDiffItemCallback()) {
 
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
@@ -26,14 +29,29 @@ class MovieAdapter(context: Context) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(layoutInflater.inflate(R.layout.item_movie, parent, false))
+        return MovieViewHolder(
+            layoutInflater.inflate(R.layout.item_movie, parent, false),
+            onItemClick
+        )
     }
 
-    class MovieViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MovieViewHolder(
+        itemView: View,
+        private val onItemClick: (movieId: Long) -> Unit
+    ) : RecyclerView.ViewHolder(itemView) {
         private val binding by viewBinding(ItemMovieBinding::bind)
+        private var movieId: Long? = null
+
+        init {
+            itemView.setOnClickListener {
+                movieId?.let(onItemClick)
+            }
+        }
+
         fun bind(movie: Movie) {
 
             with(binding) {
+                movieId = movie.id
                 itemMovieTitleText.text = movie.title
                 itemMovieReleaseDateText.text = movie.releaseDate
                 itemMovieSloganText.text = movie.description
