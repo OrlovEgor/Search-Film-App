@@ -7,6 +7,9 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.ui.NavigationUI
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +27,13 @@ class MoviesSearchFragment : Fragment(R.layout.fragment_search_movies) {
     private val viewModel: MovieSearchViewModel by viewModels()
 
     private val movieAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        MovieAdapter(requireContext())
+        MovieAdapter(requireContext()) { movieId ->
+            findNavController().navigate(
+                MoviesSearchFragmentDirections.actionMoviesSearchFragmentToFullDescriptionFragment(
+                    movieId
+                )
+            )
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
