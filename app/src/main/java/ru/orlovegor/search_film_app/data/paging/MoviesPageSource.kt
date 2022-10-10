@@ -5,7 +5,7 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import retrofit2.HttpException
 import ru.orlovegor.search_film_app.data.remote.MovieApi
-import ru.orlovegor.search_film_app.data.models.remote_models.MovieDto
+import ru.orlovegor.search_film_app.data.remote.models.MovieDto
 import java.io.IOException
 
 
