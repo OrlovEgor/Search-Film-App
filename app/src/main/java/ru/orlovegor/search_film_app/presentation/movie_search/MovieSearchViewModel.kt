@@ -9,6 +9,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.orlovegor.search_film_app.data.models.Movie
+import ru.orlovegor.search_film_app.data.repositories.SearchMovieRepositoryImpl
 import ru.orlovegor.search_film_app.domain.GetMovieByTittleUsesCase
 import javax.inject.Inject
 
