@@ -10,6 +10,7 @@
     <string name="_10_09_2017">10.09.2017</string>
     <string name="not_destcriprion">Нет описания</string>
     <string name="empty_release_date">----</string>
+    <string name="age_restriction">0+</string>
     <string name="no_connection">Нет подключения к интернету</string>
     <string name="retry">Повторить</string>
     <string name="connection_error">Ошибка подключения</string>
