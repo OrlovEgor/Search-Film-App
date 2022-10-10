@@ -1,3 +1,7 @@
 package ru.orlovegor.search_film_app.data.repositories
 
-interface FullDescriptionRepository
+import ru.orlovegor.search_film_app.data.remote.models.MovieDto
+
+interface FullDescriptionRepository{
+  suspend fun getFullDescriptionMovieById(movieId: Long): MovieDto
+}
