@@ -11,7 +11,8 @@
         tools:layout="@layout/fragment_search_movies">
         <action
             android:id="@+id/action_moviesSearchFragment_to_fullDescriptionFragment"
-            app:destination="@id/fullDescriptionFragment" />
+            app:destination="@id/fullDescriptionFragment"
+            app:enterAnim="@anim/animation_alpha" />
     </fragment>
     <fragment
         android:id="@+id/fullDescriptionFragment"
