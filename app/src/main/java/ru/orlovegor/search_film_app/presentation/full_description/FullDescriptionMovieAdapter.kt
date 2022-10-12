@@ -16,6 +16,10 @@ class FullDescriptionMovieAdapter(
 
     private var movies = listOf<Movie>()
 
+    val similarMovieAdapter by lazy(LazyThreadSafetyMode.NONE) {
+        MovieSimilarAdapter(onItemClick = onItemClickNested)
+    }
+
     @SuppressLint("NotifyDataSetChanged")
     fun setMovies(newMovies: List<Movie>) {
         movies = newMovies
@@ -54,15 +58,18 @@ class FullDescriptionMovieAdapter(
                     .error(R.drawable.ic_error_40)
                     .placeholder(R.drawable.ic_picture_40)
                     .into(binding.posterImage)
-                val similarMovieAdapter by lazy(LazyThreadSafetyMode.NONE) {
-                    MovieSimilarAdapter(onItemClick = onItemClickNested)
-                }
+
+                initList(similarMovieAdapter)
                 similarMovieAdapter.submitList(movie.similarMovie)
-                with(binding.similarMovieRecycler) {
-                    adapter = similarMovieAdapter
-                    layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                }
+            }
+        }
+
+        private fun initList(similarMovieAdapter: MovieSimilarAdapter) {
+
+            with(binding.similarMovieRecycler) {
+                this.adapter = similarMovieAdapter
+                layoutManager =
+                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             }
         }
     }
