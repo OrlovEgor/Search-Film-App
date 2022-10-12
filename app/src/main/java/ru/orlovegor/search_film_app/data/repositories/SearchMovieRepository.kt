@@ -1,11 +1,11 @@
 package ru.orlovegor.search_film_app.data.repositories
 
-import androidx.paging.Pager
-import ru.orlovegor.search_film_app.data.remote.models.MovieDto
+import androidx.paging.PagingData
+import ru.orlovegor.search_film_app.presentation.models.Movie
 
 
 interface SearchMovieRepository {
 
-   fun getMovieByTittlePaging(tittle: String): Pager<Int, MovieDto>
+  suspend fun getMovieByTittlePagingData(tittle: String): PagingData<Movie>
 
 }
