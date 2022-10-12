@@ -4,8 +4,8 @@
     xmlns:cardView="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card"
-    android:layout_width="120dp"
-    android:layout_height="216dp"
+    android:layout_width="176dp"
+    android:layout_height="264dp"
     android:background="@color/white"
     cardView:cardCornerRadius="@dimen/medium_4dp"
     cardView:cardElevation="@dimen/medium_4dp">
@@ -14,26 +14,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/tittle_text_item_similar"
-            style="@style/SupportBoldTextStyle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:maxLines="4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="@string/tittle_sample" />
 
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/poster_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/medium_4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:scaleType="fitXY"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tittle_text_item_similar"
+            app:layout_constraintTop_toTopOf="parent"
             tools:background="@drawable/ic_item_preview_photo" />
 
 
