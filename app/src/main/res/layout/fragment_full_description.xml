@@ -1,135 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:cardView="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/medium_4dp"
-    android:background="@color/black"
-    cardView:cardCornerRadius="@dimen/medium_4dp"
-    cardView:cardElevation="@dimen/medium_4dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="@dimen/medium_4dp">
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/full_description_recycler"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_full_description" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tittle_text"
-                style="@style/TittleTextStyleLarge"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                tools:text="@string/tittle_sample" />
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/poster_image"
-                style="@style/customRoundedImageView"
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:layout_marginTop="@dimen/large_8dp"
-                android:scaleType="fitXY"
-                app:layout_constraintTop_toBottomOf="@+id/tittle_text"
-                tools:background="@drawable/x1000" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/description_text"
-                style="@style/DefaultTextStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/large_8dp"
-                android:gravity="center"
-                android:text="@string/sample_description"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/poster_image" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/rating_default_text"
-                style="@style/DefaultTextStyleLargeBold"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/large_8dp"
-                android:text="@string/Rating"
-                app:layout_constraintEnd_toStartOf="@+id/rating_text"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/description_text" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/rating_text"
-                style="@style/DefaultTextStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/medium_4dp"
-                android:layout_marginTop="@dimen/large_8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/rating_default_text"
-                app:layout_constraintTop_toBottomOf="@+id/description_text"
-                tools:text="5.0" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/age_restrictions_default_text"
-                style="@style/DefaultTextStyleLargeBold"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/large_8dp"
-                android:text="@string/age_restrictions"
-                app:layout_constraintEnd_toStartOf="@+id/age_restrictions_text"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rating_default_text" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/age_restrictions_text"
-                style="@style/DefaultTextStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="@dimen/medium_4dp"
-                android:layout_marginTop="@dimen/large_8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/age_restrictions_default_text"
-                app:layout_constraintTop_toBottomOf="@+id/rating_default_text"
-                tools:text="@string/age" />
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/analog_film"
-                style="@style/DefaultTextStyleLargeBold"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/large_8dp"
-                android:gravity="center"
-                android:text="@string/analog_film"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/age_restrictions_default_text" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/similar_movie_recycler"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/large_8dp"
-                android:layout_marginBottom="@dimen/large_8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/analog_film"
-                tools:itemCount="3"
-                tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_similar_movie"
-                tools:orientation="horizontal" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
-
-
-</androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
