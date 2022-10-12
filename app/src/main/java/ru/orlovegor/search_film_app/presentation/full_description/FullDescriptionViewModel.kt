@@ -1,6 +1,5 @@
 package ru.orlovegor.search_film_app.presentation.full_description
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import ru.orlovegor.search_film_app.R
 import ru.orlovegor.search_film_app.data.repositories.FullDescriptionRepository
 import ru.orlovegor.search_film_app.presentation.models.Movie
 import ru.orlovegor.search_film_app.presentation.models.SimilarMovie
@@ -16,30 +16,31 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FullDescriptionViewModel @Inject constructor(
-    private val stateNavArgs: SavedStateHandle,
+    stateNavArgs: SavedStateHandle,
     private val fullDescriptionRepository: FullDescriptionRepository
 
 ) : ViewModel() {
 
     private val _movie = MutableSharedFlow<Movie>()
-    private val _movieId = MutableStateFlow(stateNavArgs.get<Long>("movieId"))
+    private val _movieId = MutableStateFlow(stateNavArgs.get<Long>(NAV_ARG_KEY_MOVIE_ID))
     private val _similarMovies = MutableSharedFlow<List<SimilarMovie>>()
     private val _isProgress = MutableStateFlow(false)
+    private val _error = MutableSharedFlow<Int>()
 
     val movie = _movie.asSharedFlow()
-    private val movieId = _movieId.asStateFlow()
-    val similarMovie = _similarMovies.asSharedFlow()
     val isProgress = _isProgress.asStateFlow()
+    val error = _error.asSharedFlow()
 
     init {
         viewModelScope.launch { load() }
     }
 
     private suspend fun load() {
-        if (movieId.value == null) {
+        if (_movieId.value == null) {
+            _error.emit(R.string.connection_error)
             return
         } else {
-            movieId
+            _movieId
                 .onEach {
                     _isProgress.value = true
                     when (val data = fullDescriptionRepository.getFullDescriptionMovieById(it!!)) {
@@ -48,10 +49,10 @@ class FullDescriptionViewModel @Inject constructor(
                             _similarMovies.emit(data.value.similarMovie)
                         }
                         is ResultWrapper.Error -> {
-                            Log.d("VM", "Error")
+                            _error.emit(R.string.connection_error)
                         }
                         is ResultWrapper.NetworkError -> {
-                            Log.d("VM", "NetworkError")
+                            _error.emit(R.string.no_internet_connection)
                         }
                     }
                 }
@@ -66,5 +67,7 @@ class FullDescriptionViewModel @Inject constructor(
             _movieId.emit(movieId)
         }
     }
-
+    companion object{
+        const val  NAV_ARG_KEY_MOVIE_ID = "movieId"
+    }
 }
