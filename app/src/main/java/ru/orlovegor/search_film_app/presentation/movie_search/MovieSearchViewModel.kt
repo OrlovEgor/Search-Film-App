@@ -8,14 +8,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import ru.orlovegor.search_film_app.data.models.Movie
-import ru.orlovegor.search_film_app.data.repositories.SearchMovieRepositoryImpl
-import ru.orlovegor.search_film_app.domain.GetMovieByTittleUsesCase
+import ru.orlovegor.search_film_app.data.repositories.SearchMovieRepository
+import ru.orlovegor.search_film_app.presentation.models.Movie
 import javax.inject.Inject
 
 @HiltViewModel
 class MovieSearchViewModel @Inject constructor(
-    private val usesCase: GetMovieByTittleUsesCase
+    private val searchMovieRepository: SearchMovieRepository
 ) : ViewModel() {
 
     private val _query = MutableSharedFlow<String>()
@@ -23,7 +22,7 @@ class MovieSearchViewModel @Inject constructor(
 
     @OptIn(ExperimentalCoroutinesApi::class)
     val movies: StateFlow<PagingData<Movie>> = query
-        .mapLatest { usesCase.invoke(it) }
+        .mapLatest { searchMovieRepository.getMovieByTittlePagingData(it) }
         .cachedIn(viewModelScope)
         .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
 
@@ -32,5 +31,7 @@ class MovieSearchViewModel @Inject constructor(
             _query.emit(query)
         }
     }
+
+
 
 }
