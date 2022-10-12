@@ -1,6 +1,4 @@
-package ru.orlovegor.search_film_app.data.models
-
-import ru.orlovegor.search_film_app.data.remote.models.SimilarMovieDto
+package ru.orlovegor.search_film_app.presentation.models
 
 data class Movie(
     val id: Long,
@@ -8,9 +6,10 @@ data class Movie(
     val posterUrl: String,
     val releaseDate: String,
     val description: String,
+    val shortDescription: String,
     val rating : Double,
     val ageRestriction: String,
-    val similarMovieDto: List<SimilarMovieDto>
+    val similarMovie: List<SimilarMovie>
 
 )
 
