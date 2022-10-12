@@ -19,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import ru.orlovegor.search_film_app.R
 import ru.orlovegor.search_film_app.databinding.FragmentSearchMoviesBinding
+import ru.orlovegor.search_film_app.presentation.models.Movie
 
 @AndroidEntryPoint
 class MoviesSearchFragment : Fragment(R.layout.fragment_search_movies) {
