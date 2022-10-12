@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import ru.orlovegor.search_film_app.R
-import ru.orlovegor.search_film_app.data.models.Movie
+import ru.orlovegor.search_film_app.presentation.models.Movie
 import ru.orlovegor.search_film_app.databinding.ItemMovieBinding
 
 class MovieAdapter(
@@ -25,7 +25,7 @@ class MovieAdapter(
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
         holder.itemView.animation =
-            loadAnimation(holder.itemView.context, R.anim.animation_recycler)
+            loadAnimation(holder.itemView.context, R.anim.animation_alpha)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -54,7 +54,7 @@ class MovieAdapter(
                 movieId = movie.id
                 itemMovieTitleText.text = movie.title
                 itemMovieReleaseDateText.text = movie.releaseDate
-                itemMovieSloganText.text = movie.description
+                itemMovieSloganText.text = movie.shortDescription
                 itemMovieRatingText.text = movie.rating.toString()
                 Glide.with(itemView)
                     .load(movie.posterUrl)
