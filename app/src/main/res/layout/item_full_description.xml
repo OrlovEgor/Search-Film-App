@@ -17,26 +17,26 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackground">
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/poster_image"
+            style="@style/customRoundedImageView"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:scaleType="fitXY"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/x1000" />
+
         <TextView
             android:id="@+id/tittle_text"
             style="@style/TittleTextStyleLarge"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
+            android:layout_marginTop="@dimen/large_8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/poster_image"
             tools:text="@string/tittle_sample" />
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/poster_image"
-            style="@style/customRoundedImageView"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:layout_marginTop="@dimen/large_8dp"
-            android:scaleType="fitXY"
-            app:layout_constraintTop_toBottomOf="@+id/tittle_text"
-            tools:background="@drawable/x1000" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/description_text"
@@ -47,7 +47,7 @@
             android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/poster_image"
+            app:layout_constraintTop_toBottomOf="@+id/tittle_text"
             tools:text="@string/sample_description" />
 
         <com.google.android.material.textview.MaterialTextView
