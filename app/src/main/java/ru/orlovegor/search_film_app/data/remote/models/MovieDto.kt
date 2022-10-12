@@ -48,7 +48,7 @@ data class SimilarMovieDto(
     @Json(name = "name")
     val tittle: String?,
     @Json(name = "poster")
-    val imageUrl: PosterMovie?
+    val posterUrl: PosterMovie?
 
 )
 
