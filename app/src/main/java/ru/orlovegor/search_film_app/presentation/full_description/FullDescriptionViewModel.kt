@@ -4,7 +4,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.orlovegor.search_film_app.R
@@ -16,13 +15,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FullDescriptionViewModel @Inject constructor(
-    stateNavArgs: SavedStateHandle,
+   private val stateNavArgs: SavedStateHandle,
     private val fullDescriptionRepository: FullDescriptionRepository
 
 ) : ViewModel() {
 
     private val _movie = MutableSharedFlow<Movie>()
-    private val _movieId = MutableStateFlow(stateNavArgs.get<Long>(NAV_ARG_KEY_MOVIE_ID))
+    private val _movieId = MutableSharedFlow<Long>()
     private val _similarMovies = MutableSharedFlow<List<SimilarMovie>>()
     private val _isProgress = MutableStateFlow(false)
     private val _error = MutableSharedFlow<Int>()
@@ -32,14 +31,15 @@ class FullDescriptionViewModel @Inject constructor(
     val error = _error.asSharedFlow()
 
     init {
-        viewModelScope.launch { load() }
+        viewModelScope.launch {
+            load()
+        }
+        viewModelScope.launch {
+            _movieId.emit(stateNavArgs.get<Long>(NAV_ARG_KEY_MOVIE_ID)!!)
+        }
     }
 
     private suspend fun load() {
-        if (_movieId.value == null) {
-            _error.emit(R.string.connection_error)
-            return
-        } else {
             _movieId
                 .onEach {
                     _isProgress.value = true
@@ -57,10 +57,9 @@ class FullDescriptionViewModel @Inject constructor(
                     }
                 }
                 .onEach { _isProgress.value = false }
-                .flowOn(Dispatchers.IO)
                 .launchIn(viewModelScope)
         }
-    }
+
 
     fun loadSimilarMovieFullDescription(movieId: Long) {
         viewModelScope.launch {
