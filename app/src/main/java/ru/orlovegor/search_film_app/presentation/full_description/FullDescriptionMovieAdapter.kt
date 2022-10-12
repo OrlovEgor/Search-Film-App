@@ -1,8 +1,11 @@
 package ru.orlovegor.search_film_app.presentation.full_description
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -11,7 +14,8 @@ import ru.orlovegor.search_film_app.databinding.ItemFullDescriptionBinding
 import ru.orlovegor.search_film_app.presentation.models.Movie
 
 class FullDescriptionMovieAdapter(
-    private val onItemClickNested: (movieId: Long) -> Unit
+    private val onItemClickNested: (movieId: Long) -> Unit,
+    private val context: Context
 ) : RecyclerView.Adapter<FullDescriptionMovieAdapter.FullDescriptionMovieViewHolder>() {
 
     private var movies = listOf<Movie>()
@@ -37,6 +41,8 @@ class FullDescriptionMovieAdapter(
 
     override fun onBindViewHolder(holder: FullDescriptionMovieViewHolder, position: Int) {
         holder.bind(movies[position])
+        holder.itemView.animation =
+            AnimationUtils.loadAnimation(holder.itemView.context, R.anim.animation_alpha)
     }
 
     override fun getItemCount(): Int {
@@ -46,6 +52,10 @@ class FullDescriptionMovieAdapter(
     inner class FullDescriptionMovieViewHolder(
         private val binding: ItemFullDescriptionBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            initList(similarMovieAdapter)
+        }
 
         fun bind(movie: Movie) {
             with(binding) {
@@ -59,17 +69,25 @@ class FullDescriptionMovieAdapter(
                     .placeholder(R.drawable.ic_picture_40)
                     .into(binding.posterImage)
 
-                initList(similarMovieAdapter)
                 similarMovieAdapter.submitList(movie.similarMovie)
             }
         }
 
+        @SuppressLint("UseCompatLoadingForDrawables")
         private fun initList(similarMovieAdapter: MovieSimilarAdapter) {
+            val dividerDecorator = DividerItemDecoration(context, RecyclerView.HORIZONTAL)
+            dividerDecorator.setDrawable(
+                context.resources.getDrawable(
+                    R.drawable.divider_white,
+                    context.theme
+                )
+            )
 
             with(binding.similarMovieRecycler) {
                 this.adapter = similarMovieAdapter
                 layoutManager =
                     LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                addItemDecoration(dividerDecorator)
             }
         }
     }
