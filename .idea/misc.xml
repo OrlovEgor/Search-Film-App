@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/drawable/checkbox_favorite.xml" value="0.2765" />
+        <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/drawable/divider_black.xml" value="0.2335" />
         <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/drawable/divider_drawable.xml" value="0.2445" />
+        <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/drawable/divider_white.xml" value="0.2335" />
         <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/drawable/ic_movie.xml" value="0.272" />
         <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/drawable/ic_picture_40.xml" value="0.242" />
         <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/drawable/ic_star.xml" value="0.2805" />
@@ -12,7 +14,7 @@
         <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/layout/activity_main.xml" value="0.5" />
         <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/layout/fragment_favorite_movies.xml" value="0.365625" />
         <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/layout/fragment_film.xml" value="0.2790909090909091" />
-        <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/layout/fragment_full_description.xml" value="0.2" />
+        <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/layout/fragment_full_description.xml" value="0.33" />
         <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/layout/fragment_search_movies.xml" value="0.5" />
         <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/layout/item_error.xml" value="0.54140625" />
         <entry key="..\:/MyRepoGithub/Search-Film-App/app/src/main/res/layout/item_full_description.xml" value="0.25" />

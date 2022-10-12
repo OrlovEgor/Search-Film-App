@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import androidx.navigation.ui.NavigationUI
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import ru.orlovegor.search_film_app.R
 import ru.orlovegor.search_film_app.databinding.FragmentSearchMoviesBinding
-import ru.orlovegor.search_film_app.presentation.models.Movie
 
 @AndroidEntryPoint
 class MoviesSearchFragment : Fragment(R.layout.fragment_search_movies) {
@@ -54,10 +51,11 @@ class MoviesSearchFragment : Fragment(R.layout.fragment_search_movies) {
         val dividerDecorator = DividerItemDecoration(requireContext(), RecyclerView.VERTICAL)
         dividerDecorator.setDrawable(
             resources.getDrawable(
-                R.drawable.divider_drawable,
+                R.drawable.divider_black,
                 requireContext().theme
             )
         )
+
         with(binding.movieRecyclerView) {
             adapter = movieAdapter
             layoutManager = LinearLayoutManager(requireContext())
