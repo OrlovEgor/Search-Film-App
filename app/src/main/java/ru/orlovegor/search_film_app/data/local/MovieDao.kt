@@ -1,9 +1,6 @@
 package ru.orlovegor.search_film_app.data.local
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 import ru.orlovegor.search_film_app.data.local.models.MovieLocal
 
@@ -11,14 +8,11 @@ import ru.orlovegor.search_film_app.data.local.models.MovieLocal
 interface MovieDao {
 
     @Query("select * from ${MovieDatabaseContract.TABLE_NAME}")
-    fun getMovies(): Flow<List<MovieLocal>>
-
-    @Query("select * from ${MovieDatabaseContract.TABLE_NAME} where ${MovieDatabaseContract.Columns.ID} ")
-    fun getMoviesId(): Flow<List<Long>>
+   fun getMovies(): Flow<List<MovieLocal>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovie(movie: MovieLocal)
+  suspend  fun insertMovie(movie: MovieLocal)
 
-    @Query("delete from ${MovieDatabaseContract.TABLE_NAME} where ${MovieDatabaseContract.Columns.ID} = :movieId ")
-    fun deleteMovie(movieId: Long)
+    @Delete
+   suspend fun deleteMovie(movie: MovieLocal)
 }
