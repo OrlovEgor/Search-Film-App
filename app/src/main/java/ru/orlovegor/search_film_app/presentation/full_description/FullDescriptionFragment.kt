@@ -15,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import ru.orlovegor.search_film_app.R
 import ru.orlovegor.search_film_app.databinding.FragmentFullDescriptionBinding
+import ru.orlovegor.search_film_app.presentation.adapters.FullDescriptionMovieAdapter
 
 @AndroidEntryPoint
 class FullDescriptionFragment : Fragment(R.layout.fragment_full_description) {
