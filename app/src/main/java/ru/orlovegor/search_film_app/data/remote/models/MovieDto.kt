@@ -22,7 +22,8 @@ data class MovieDto(
     @Json(name = "ratingMpaa")
     val ageRestriction: AgeRestriction?,
     @Json(name = "similarMovies")
-    val similarMovieDto: List<SimilarMovieDto?>?
+    val similarMovieDto: List<SimilarMovieDto?>?,
+    val isFavorite: Boolean = false
 )
 
 @JsonClass(generateAdapter = true)

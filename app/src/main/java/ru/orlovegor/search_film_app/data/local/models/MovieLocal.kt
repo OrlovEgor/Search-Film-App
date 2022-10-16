@@ -26,5 +26,7 @@ data class MovieLocal(
     val rating: Double,
     @ColumnInfo(name = MovieDatabaseContract.Columns.AGE_RESTRICTION)
     val ageRestriction: String,
+    @ColumnInfo(name = MovieDatabaseContract.Columns.IS_FAVORITE)
+    var isFavorite: Boolean
 )
 

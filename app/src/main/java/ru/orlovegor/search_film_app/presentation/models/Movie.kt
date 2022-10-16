@@ -9,7 +9,8 @@ data class Movie(
     val shortDescription: String,
     val rating : Double,
     val ageRestriction: String,
-    val similarMovie: List<SimilarMovie>
+    val similarMovie: List<SimilarMovie>,
+    var isFavorite:Boolean
 
 )
 
