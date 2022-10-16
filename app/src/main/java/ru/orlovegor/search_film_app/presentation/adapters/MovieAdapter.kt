@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import ru.orlovegor.search_film_app.R
-import ru.orlovegor.search_film_app.presentation.models.Movie
 import ru.orlovegor.search_film_app.databinding.ItemMovieBinding
+import ru.orlovegor.search_film_app.presentation.models.Movie
 
 class MovieAdapter(
     context: Context,
-    private val onItemClick: (movieId: Long) -> Unit
+    private val onItemClick: (movieId: Long) -> Unit,
+    private val onCheckFavoriteState: (movie: Movie, isFavorite: Boolean) -> Unit
 ) :
     PagingDataAdapter<Movie, MovieAdapter.MovieViewHolder>(MovieDiffItemCallback()) {
 
@@ -31,31 +32,44 @@ class MovieAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(
             layoutInflater.inflate(R.layout.item_movie, parent, false),
-            onItemClick
+            onItemClick, onCheckFavoriteState
         )
     }
 
     class MovieViewHolder(
         itemView: View,
-        private val onItemClick: (movieId: Long) -> Unit
+        onItemClick: (movieId: Long) -> Unit,
+        onCheckFavoriteState: (movie: Movie, isFavorite: Boolean) -> Unit
     ) : RecyclerView.ViewHolder(itemView) {
         private val binding by viewBinding(ItemMovieBinding::bind)
         private var movieId: Long? = null
+        private var sendMovie: Movie? = null
 
         init {
+            binding.itemMovieFavoriteCheckbox.setOnClickListener {
+                if (binding.itemMovieFavoriteCheckbox.isChecked) {
+                    sendMovie?.isFavorite = true
+                    sendMovie?.let { movie -> onCheckFavoriteState(movie, true) }
+                } else {
+                    sendMovie?.isFavorite = false
+                    sendMovie?.let { movie -> onCheckFavoriteState(movie, false) }
+                }
+            }
+
             itemView.setOnClickListener {
                 movieId?.let(onItemClick)
             }
         }
 
         fun bind(movie: Movie) {
-
             with(binding) {
                 movieId = movie.id
+                sendMovie = movie
                 itemMovieTitleText.text = movie.title
                 itemMovieReleaseDateText.text = movie.releaseDate
                 itemMovieSloganText.text = movie.shortDescription
                 itemMovieRatingText.text = movie.rating.toString()
+                itemMovieFavoriteCheckbox.isChecked = movie.isFavorite
                 Glide.with(itemView)
                     .load(movie.posterUrl)
                     .placeholder(R.drawable.ic_picture_40)
@@ -73,7 +87,5 @@ class MovieAdapter(
         override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean {
             return oldItem.id == newItem.id
         }
-
     }
-
 }
