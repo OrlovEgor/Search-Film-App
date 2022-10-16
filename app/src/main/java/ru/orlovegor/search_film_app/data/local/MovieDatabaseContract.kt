@@ -8,12 +8,12 @@ object MovieDatabaseContract {
         const val ID = "id"
         const val TITTLE = "tittle"
         const val POSTER = "poster_url"
-        const val RELEASE_DATE = "releaseDate"
+        const val RELEASE_DATE = "release_date"
         const val DESCRIPTION = "description"
-        const val SHORT_DESCRIPTION = "shortDescription"
+        const val SHORT_DESCRIPTION = "short_description"
         const val RATING = "rating"
-        const val AGE_RESTRICTION = "ageRestriction"
-        const val SIMILAR_MOVIES = "similarMovie"
+        const val AGE_RESTRICTION = "age_restriction"
+        const val IS_FAVORITE = "is_favorite"
 
     }
 
