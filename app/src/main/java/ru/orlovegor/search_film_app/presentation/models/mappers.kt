@@ -21,7 +21,8 @@ fun MovieDto.mapToMovie(context: Context) =
             !this.description.isNullOrBlank() -> this.description
             else -> context.resources.getString(R.string.not_destcriprion)
         },
-        shortDescription = this.shortDescription ?: context.resources.getString(R.string.not_destcriprion),
+        shortDescription = this.shortDescription
+            ?: context.resources.getString(R.string.not_destcriprion),
         rating = when {
             this.rating.kp > 0.0 -> this.rating.kp
             else -> this.rating.imdb
@@ -29,7 +30,8 @@ fun MovieDto.mapToMovie(context: Context) =
         ageRestriction = this.ageRestriction?.age
             ?: context.resources.getString(R.string.age_restriction),
         similarMovie = this.similarMovieDto?.filterNotNull()?.map { it.mapToSimilarMovie() }
-            ?: listOf()
+            ?: listOf(),
+        isFavorite = this.isFavorite
 
     )
 
@@ -54,5 +56,19 @@ fun MovieLocal.mapToMovie() =
         shortDescription = this.shortDescription,
         rating = this.rating,
         ageRestriction = this.ageRestriction,
-        similarMovie = listOf()
+        similarMovie = listOf(),
+        isFavorite = this.isFavorite
+    )
+
+fun Movie.mapToMovieLocal() =
+    MovieLocal(
+        id = this.id,
+        title = this.title,
+        posterUrl = this.posterUrl,
+        releaseDate = this.releaseDate,
+        description = this.description,
+        shortDescription = this.shortDescription,
+        rating = this.rating,
+        ageRestriction = this.ageRestriction,
+        isFavorite = this.isFavorite
     )
