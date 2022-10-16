@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import ru.orlovegor.search_film_app.R
 import ru.orlovegor.search_film_app.databinding.FragmentSearchMoviesBinding
+import ru.orlovegor.search_film_app.presentation.adapters.MovieAdapter
 
 @AndroidEntryPoint
 class MoviesSearchFragment : Fragment(R.layout.fragment_search_movies) {
@@ -25,13 +26,14 @@ class MoviesSearchFragment : Fragment(R.layout.fragment_search_movies) {
     private val viewModel: MovieSearchViewModel by viewModels()
 
     private val movieAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        MovieAdapter(requireContext()) { movieId ->
+        MovieAdapter(requireContext(), { movieId ->
             findNavController().navigate(
                 MoviesSearchFragmentDirections.actionMoviesSearchFragmentToFullDescriptionFragment(
                     movieId
                 )
             )
-        }
+        }, { movie, isFavorite -> viewModel.isFavoriteHandleState(movie, isFavorite) })
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
