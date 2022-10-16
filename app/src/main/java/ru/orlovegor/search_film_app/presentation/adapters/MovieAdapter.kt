@@ -1,4 +1,4 @@
-package ru.orlovegor.search_film_app.presentation.movie_search
+package ru.orlovegor.search_film_app.presentation.adapters
 
 import android.content.Context
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package ru.orlovegor.search_film_app.presentation.full_description
+package ru.orlovegor.search_film_app.presentation.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
