@@ -32,6 +32,13 @@ class MovieSearchViewModel @Inject constructor(
         }
     }
 
-
-
+    fun isFavoriteHandleState(movie: Movie, isFavorite: Boolean) {
+        viewModelScope.launch {
+            if (isFavorite) {
+                val isInsert = searchMovieRepository.insertMovie(movie)
+            } else {
+                val isDelete = searchMovieRepository.removeMovie(movie)
+            }
+        }
+    }
 }
