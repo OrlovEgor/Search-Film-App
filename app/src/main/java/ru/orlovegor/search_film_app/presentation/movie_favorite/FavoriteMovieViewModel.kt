@@ -11,5 +11,5 @@ import javax.inject.Inject
 class FavoriteMovieViewModel @Inject constructor(
     private val favoriteRepository: FavoriteMovieRepository
 ) : ViewModel() {
-    val movies = favoriteRepository.getMovies().shareIn(viewModelScope, SharingStarted.Lazily)
+    val movies = favoriteRepository.getMovies().shareIn(viewModelScope, SharingStarted.Lazily, replay = 1)
 }
