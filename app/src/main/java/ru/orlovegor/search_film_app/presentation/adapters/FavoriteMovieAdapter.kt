@@ -49,6 +49,7 @@ class FavoriteMovieAdapter() :
                 itemMovieReleaseDateText.text = movie.releaseDate
                 itemMovieSloganText.text = movie.shortDescription
                 itemMovieRatingText.text = movie.rating.toString()
+                itemMovieFavoriteCheckbox.isChecked = movie.isFavorite
                 Glide.with(itemView)
                     .load(movie.posterUrl)
                     .placeholder(R.drawable.ic_picture_40)
