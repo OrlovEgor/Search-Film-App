@@ -26,14 +26,13 @@ class MoviesSearchFragment : Fragment(R.layout.fragment_search_movies) {
     private val viewModel: MovieSearchViewModel by viewModels()
 
     private val movieAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        MovieAdapter(requireContext(), { movieId ->
+        MovieAdapter(requireContext()) { movieId ->
             findNavController().navigate(
                 MoviesSearchFragmentDirections.actionMoviesSearchFragmentToFullDescriptionFragment(
                     movieId
                 )
             )
-        }, { movie, isFavorite -> viewModel.isFavoriteHandleState(movie, isFavorite) })
-
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
