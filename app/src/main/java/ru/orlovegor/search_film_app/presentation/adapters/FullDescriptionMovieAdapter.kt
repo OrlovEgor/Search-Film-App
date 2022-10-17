@@ -15,6 +15,7 @@ import ru.orlovegor.search_film_app.presentation.models.Movie
 
 class FullDescriptionMovieAdapter(
     private val onItemClickNested: (movieId: Long) -> Unit,
+    private val isFavoriteClick: (movie:Movie, isFavorite: Boolean ) -> Unit,
     private val context: Context
 ) : RecyclerView.Adapter<FullDescriptionMovieAdapter.FullDescriptionMovieViewHolder>() {
 
@@ -36,7 +37,7 @@ class FullDescriptionMovieAdapter(
     ): FullDescriptionMovieViewHolder {
         val binding =
             ItemFullDescriptionBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return FullDescriptionMovieViewHolder(binding)
+        return FullDescriptionMovieViewHolder(binding,isFavoriteClick)
     }
 
     override fun onBindViewHolder(holder: FullDescriptionMovieViewHolder, position: Int) {
@@ -50,19 +51,34 @@ class FullDescriptionMovieAdapter(
     }
 
     inner class FullDescriptionMovieViewHolder(
-        private val binding: ItemFullDescriptionBinding
+        private val binding: ItemFullDescriptionBinding,
+        isFavoriteClick: (movie: Movie, isFavorite: Boolean) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
+        private var sendMovie: Movie? = null
 
         init {
-            initList(similarMovieAdapter)
+
+            binding.itemMovieFavoriteCheckbox.setOnClickListener {
+                if (binding.itemMovieFavoriteCheckbox.isChecked) {
+                    sendMovie?.isFavorite = true
+                    sendMovie?.let { movie -> isFavoriteClick(movie, true) }
+                } else {
+                    sendMovie?.isFavorite = false
+                    sendMovie?.let { movie -> isFavoriteClick(movie, false) }
+                }
+
+                initList(similarMovieAdapter)
+            }
         }
 
         fun bind(movie: Movie) {
+            sendMovie = movie
             with(binding) {
                 tittleText.text = movie.title
                 descriptionText.text = movie.description
                 ratingText.text = movie.rating.toString()
                 ageRestrictionsText.text = movie.ageRestriction
+                itemMovieFavoriteCheckbox.isChecked = movie.isFavorite
                 Glide.with(binding.root)
                     .load(movie.posterUrl)
                     .error(R.drawable.ic_error_40)

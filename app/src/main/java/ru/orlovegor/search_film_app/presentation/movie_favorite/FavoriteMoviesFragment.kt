@@ -16,14 +16,13 @@ import ru.orlovegor.search_film_app.R
 import ru.orlovegor.search_film_app.databinding.FragmentFavoriteMoviesBinding
 import ru.orlovegor.search_film_app.presentation.adapters.FavoriteMovieAdapter
 
-
 @AndroidEntryPoint
 class FavoriteMoviesFragment: Fragment(R.layout.fragment_favorite_movies) {
 
     private val binding: FragmentFavoriteMoviesBinding by viewBinding()
     private val viewModel: FavoriteMovieViewModel by viewModels()
     private val movieAdapter by lazy(LazyThreadSafetyMode.NONE) {
-        FavoriteMovieAdapter()
+        FavoriteMovieAdapter { movie -> viewModel.deleteMovie(movie) }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

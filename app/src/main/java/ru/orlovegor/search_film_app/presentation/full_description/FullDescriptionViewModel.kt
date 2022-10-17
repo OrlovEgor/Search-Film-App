@@ -22,11 +22,11 @@ class FullDescriptionViewModel @Inject constructor(
     private val _movie = MutableSharedFlow<Movie>()
     private val _movieId = MutableSharedFlow<Long>()
     private val _isProgress = MutableStateFlow(false)
-    private val _error = MutableSharedFlow<Int>()
+    private val _snackText = MutableSharedFlow<Int>()
 
     val movie = _movie.asSharedFlow()
     val isProgress = _isProgress.asStateFlow()
-    val error = _error.asSharedFlow()
+    val error = _snackText.asSharedFlow()
 
     init {
         load()
@@ -44,15 +44,27 @@ class FullDescriptionViewModel @Inject constructor(
                         _movie.emit(data.value)
                     }
                     is ResultWrapper.Error -> {
-                        _error.emit(R.string.connection_error)
+                        _snackText.emit(R.string.connection_error)
                     }
                     is ResultWrapper.NetworkError -> {
-                        _error.emit(R.string.no_internet_connection)
+                        _snackText.emit(R.string.no_internet_connection)
                     }
                 }
             }
             .onEach { _isProgress.value = false }
             .launchIn(viewModelScope)
+    }
+
+    fun isFavoriteHandleState(movie: Movie, isFavorite: Boolean) {
+        viewModelScope.launch {
+            if (isFavorite) {
+                val isInsert = fullDescriptionRepository.insertMovie(movie)
+                errorDatabaseText(isInsert)
+            } else {
+                val isDelete = fullDescriptionRepository.removeMovie(movie)
+                errorDatabaseText(isDelete)
+            }
+        }
     }
 
     fun loadSimilarMovieFullDescription(movieId: Long) {
@@ -61,7 +73,11 @@ class FullDescriptionViewModel @Inject constructor(
         }
     }
 
-    companion object{
-        const val  NAV_ARG_KEY_MOVIE_ID = "movieId"
+    private suspend fun errorDatabaseText(isSuccess: Boolean) {
+        if (!isSuccess) _snackText.emit(R.string.error)
+    }
+
+    companion object {
+        const val NAV_ARG_KEY_MOVIE_ID = "movieId"
     }
 }

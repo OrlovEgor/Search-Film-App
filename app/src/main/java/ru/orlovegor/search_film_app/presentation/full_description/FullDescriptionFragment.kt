@@ -25,6 +25,7 @@ class FullDescriptionFragment : Fragment(R.layout.fragment_full_description) {
     private val fullDescriptionMovieAdapter by lazy(LazyThreadSafetyMode.NONE) {
         FullDescriptionMovieAdapter(
             { movieId -> viewModel.loadSimilarMovieFullDescription(movieId) },
+            { movie, isFavorite -> viewModel.isFavoriteHandleState(movie, isFavorite) },
             requireContext()
         )
     }
@@ -77,5 +78,4 @@ class FullDescriptionFragment : Fragment(R.layout.fragment_full_description) {
     companion object {
         const val ADAPTER_ITEM_POSITION_0 = 0
     }
-
 }

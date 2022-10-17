@@ -12,7 +12,9 @@ import ru.orlovegor.search_film_app.databinding.ItemMovieBinding
 import ru.orlovegor.search_film_app.presentation.models.Movie
 
 
-class FavoriteMovieAdapter() :
+class FavoriteMovieAdapter(
+    private val onLongClick: (movie: Movie) -> Unit
+) :
     ListAdapter<Movie, FavoriteMovieAdapter.MovieViewHolder>(MovieDiffItemCallback()) {
 
     private class MovieDiffItemCallback : DiffUtil.ItemCallback<Movie>() {
@@ -29,7 +31,7 @@ class FavoriteMovieAdapter() :
         val binding = ItemMovieBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return MovieViewHolder(binding)
+        return MovieViewHolder(binding, onLongClick)
     }
 
    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -40,16 +42,25 @@ class FavoriteMovieAdapter() :
 
     class MovieViewHolder(
         private val binding: ItemMovieBinding,
+        onClick: (movie: Movie) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(movie: Movie) {
+      private var movieFavorite: Movie? = null
 
+        init {
+            itemView.setOnLongClickListener {
+                movieFavorite?.let { it1 -> onClick(it1) }
+                false
+            }
+        }
+
+        fun bind(movie: Movie) {
+            movieFavorite = movie
             with(binding) {
                 itemMovieTitleText.text = movie.title
                 itemMovieReleaseDateText.text = movie.releaseDate
                 itemMovieSloganText.text = movie.shortDescription
                 itemMovieRatingText.text = movie.rating.toString()
-                itemMovieFavoriteCheckbox.isChecked = movie.isFavorite
                 Glide.with(itemView)
                     .load(movie.posterUrl)
                     .placeholder(R.drawable.ic_picture_40)
@@ -57,7 +68,5 @@ class FavoriteMovieAdapter() :
                     .into(itemMovieImageView)
             }
         }
-
     }
-
 }
