@@ -11,6 +11,5 @@ data class Movie(
     val ageRestriction: String,
     val similarMovie: List<SimilarMovie>,
     var isFavorite:Boolean
-
 )
 
