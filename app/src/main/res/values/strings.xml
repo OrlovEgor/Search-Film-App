@@ -19,4 +19,5 @@
     <string name="age_restrictions">Возрастное ограничение:</string>
     <string name="age">10+</string>
     <string name="analog_film">Похожие фильмы:</string>
+    <string name="error">Ошибка</string>
 </resources>
