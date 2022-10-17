@@ -14,8 +14,5 @@ object MovieDatabaseContract {
         const val RATING = "rating"
         const val AGE_RESTRICTION = "age_restriction"
         const val IS_FAVORITE = "is_favorite"
-
     }
-
-
 }

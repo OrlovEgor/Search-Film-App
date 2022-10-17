@@ -50,7 +50,6 @@ data class SimilarMovieDto(
     val tittle: String?,
     @Json(name = "poster")
     val posterUrl: PosterMovie?
-
 )
 
 enum class AgeRestriction(val age: String) {

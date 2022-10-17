@@ -12,7 +12,6 @@ import ru.orlovegor.search_film_app.data.local.models.MovieLocal
     version = DB_VERSION
 )
 
-
 abstract class MovieDatabase : RoomDatabase() {
     abstract fun getMovieDao(): MovieDao
 
