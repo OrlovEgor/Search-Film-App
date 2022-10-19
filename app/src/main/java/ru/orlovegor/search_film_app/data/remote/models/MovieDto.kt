@@ -6,9 +6,9 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class MovieDto(
     @Json(name = "id")
-    val id: Long,
+    val id: Long?,
     @Json(name = "name")
-    val title: String,
+    val title: String?,
     @Json(name = "year")
     val releaseDate: String?,
     @Json(name = "description")
