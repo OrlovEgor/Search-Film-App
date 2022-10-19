@@ -9,8 +9,8 @@ import kotlin.random.Random
 
 fun MovieDto.mapToMovie(context: Context) =
     Movie(
-        id = this.id,
-        title = this.title,
+        id = this.id ?: 0,
+        title = this.title?: "",
         posterUrl = when {
             this.posterUrl == null -> ""
             this.posterUrl.poster.isNotBlank() -> this.posterUrl.poster
