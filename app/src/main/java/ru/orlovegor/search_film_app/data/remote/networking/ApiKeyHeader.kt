@@ -1,4 +1,4 @@
-package ru.orlovegor.search_film_app.data.remote
+package ru.orlovegor.search_film_app.data.remote.networking
 
 import okhttp3.Interceptor
 import okhttp3.Response
