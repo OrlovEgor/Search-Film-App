@@ -1,4 +1,4 @@
-package ru.orlovegor.search_film_app.data.remote
+package ru.orlovegor.search_film_app.data.remote.networking
 
 import android.content.Context
 import android.net.ConnectivityManager
