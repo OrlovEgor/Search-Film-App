@@ -6,17 +6,111 @@
     android:layout_height="match_parent"
     android:layout_margin="@dimen/large_8dp">
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/movie_search_view"
-        style="?attr/searchViewStyle"
-        android:layout_width="0dp"
-        android:layout_height="38dp"
-        android:background="@drawable/search_view_rounded"
-        android:queryHint="@string/search_by_tittle"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/search_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/medium_4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:queryHint="@string/search_by_tittle" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:animateLayoutChanges="true">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/movie_search_view"
+                style="?attr/searchViewStyle"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:background="@drawable/search_view_rounded"
+                android:queryHint="@string/search_by_tittle"
+                app:layout_constraintEnd_toStartOf="@+id/expand_checkbox"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.checkbox.MaterialCheckBox
+                android:id="@+id/expand_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:button="@drawable/expand_checkbox"
+                android:checked="false"
+                android:clickable="true"
+                android:focusable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/movie_search_view"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_year"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="@dimen/medium_4dp"
+                android:hint="@string/year"
+                app:layout_constraintEnd_toStartOf="@+id/text_input_genre"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/movie_search_view">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="@dimen/medium_4dp"
+                    android:inputType="none"
+                    tools:text="year" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_genre"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="@dimen/medium_4dp"
+                android:hint="@string/genres"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@+id/text_input_year"
+                app:layout_constraintTop_toBottomOf="@+id/movie_search_view">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    tools:text="Триллер" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.slider.RangeSlider
+                android:id="@+id/rating_slider"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/medium_4dp"
+                android:layout_marginEnd="@dimen/medium_4dp"
+                android:stepSize="1.0"
+                android:valueFrom="0.0"
+                android:valueTo="10.0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_input_year"
+                app:thumbRadius="8dp"
+                app:trackHeight="2dp"
+                app:values="@array/rating_slider_initial_values" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/search_view_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="text_input_year,text_input_genre,rating_slider" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
 
     <ProgressBar
         android:id="@+id/movie_progress_bar_horizontal"
@@ -27,7 +121,7 @@
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_search_view" />
+        app:layout_constraintTop_toBottomOf="@+id/search_card" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movie_recycler_view"
@@ -74,9 +168,9 @@
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/error_view_group"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:constraint_referenced_ids="error_text, error_button" />
 
 
