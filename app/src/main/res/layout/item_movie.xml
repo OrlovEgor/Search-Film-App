@@ -85,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/large_8dp"
-            android:text="@string/Rating"
+            android:text="@string/Rating_kp"
             cardView:layout_constraintBottom_toBottomOf="parent"
             cardView:layout_constraintStart_toEndOf="@+id/item_movie_image_view"
             cardView:layout_constraintTop_toBottomOf="@id/item_movie_default_calendar" />
