@@ -10,7 +10,9 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor" tools:ignore="ObsoleteSdkInt" tools:targetApi="l">
+            ?attr/colorPrimaryVariant
+        </item>
         <!-- Customize your theme here. -->
         <item name="android:colorBackground">@color/black</item>
         <item name="searchViewStyle">@style/SearchViewMovie</item>
@@ -21,17 +23,17 @@
 
     <!-- Search View Style -->
     <style name="SearchViewMovie" parent="">
+        <item name="fontFamily">@font/source_sans_pro</item>
+        <item name="font">@font/source_sans_pro</item>
+        <item name="android:textSize">18sp</item>
         <item name="submitBackground">@color/white</item>
         <item name="queryBackground">@color/white</item>
         <item name="closeIcon">@drawable/ic_close_24</item>
         <item name="iconifiedByDefault">false</item>
     </style>
 
-    <!-- Search View Style -->
+    <!-- Slider Style -->
     <style name="SliderRating" parent="">
-        <item name="fontFamily">@font/source_sans_pro</item>
-        <item name="font">@font/source_sans_pro</item>
-        <item name="android:textSize">14sp</item>
         <item name="thumbRadius">@dimen/large_8dp</item>
         <item name="trackHeight">@dimen/low_2dp</item>
         <item name="android:stepSize">1.0</item>

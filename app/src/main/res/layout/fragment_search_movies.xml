@@ -23,7 +23,7 @@
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/movie_search_view"
-                style="?attr/searchViewStyle"
+                app:theme = "@style/SearchViewMovie"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:background="@drawable/search_view_rounded"
@@ -48,7 +48,7 @@
                 android:id="@+id/text_input_year"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="60dp"
                 android:layout_marginStart="@dimen/medium_4dp"
                 android:hint="@string/year"
                 app:layout_constraintEnd_toStartOf="@+id/text_input_genre"
@@ -57,10 +57,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/movie_search_view">
 
                 <AutoCompleteTextView
+                    style="@style/DefaultTextStyleLarge"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/medium_4dp"
-                    android:inputType="none"
+                    android:inputType="date"
                     tools:text="@string/year" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -69,7 +70,7 @@
                 android:id="@+id/text_input_genre"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
-                android:layout_height="48dp"
+                android:layout_height="60dp"
                 android:layout_marginEnd="@dimen/medium_4dp"
                 android:hint="@string/genres"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -78,6 +79,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/movie_search_view">
 
                 <AutoCompleteTextView
+                    style="@style/DefaultTextStyleLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
@@ -101,7 +103,7 @@
                 android:id="@+id/search_view_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:constraint_referenced_ids="text_input_year,text_input_genre,rating_slider" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
