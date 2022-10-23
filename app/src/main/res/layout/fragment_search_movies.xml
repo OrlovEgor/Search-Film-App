@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="@dimen/medium_4dp"
+        app:cardCornerRadius="@dimen/medium_4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -24,7 +25,7 @@
                 android:id="@+id/movie_search_view"
                 style="?attr/searchViewStyle"
                 android:layout_width="0dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:background="@drawable/search_view_rounded"
                 android:queryHint="@string/search_by_tittle"
                 app:layout_constraintEnd_toStartOf="@+id/expand_checkbox"
@@ -34,7 +35,7 @@
             <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/expand_checkbox"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:button="@drawable/expand_checkbox"
                 android:checked="false"
                 android:clickable="true"
@@ -60,7 +61,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/medium_4dp"
                     android:inputType="none"
-                    tools:text="year" />
+                    tools:text="@string/year" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +81,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="none"
-                    tools:text="Триллер" />
+                    tools:text="@string/thriller" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,16 +89,12 @@
                 android:id="@+id/rating_slider"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
+                style="@style/SliderRating"
                 android:layout_marginStart="@dimen/medium_4dp"
                 android:layout_marginEnd="@dimen/medium_4dp"
-                android:stepSize="1.0"
-                android:valueFrom="0.0"
-                android:valueTo="10.0"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_input_year"
-                app:thumbRadius="8dp"
-                app:trackHeight="2dp"
                 app:values="@array/rating_slider_initial_values" />
 
             <androidx.constraintlayout.widget.Group
@@ -108,7 +105,6 @@
                 app:constraint_referenced_ids="text_input_year,text_input_genre,rating_slider" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </androidx.cardview.widget.CardView>
 

@@ -5,7 +5,7 @@
     <string name="search_by_tittle">Поиск по названию</string>
     <string name="slogan">Ключ к будущему наконец-то найден. Ключ к будущему наконец-то найден</string>
     <string name="genre">Жанр:</string>
-    <string name="Rating">Рейтинг Кинопоиск:</string>
+    <string name="Rating_kp">Рейтинг Кинопоиск:</string>
     <string name="_10_09_2017">10.09.2017</string>
     <string name="not_destcriprion">Нет описания</string>
     <string name="empty_release_date">----</string>
@@ -20,4 +20,9 @@
     <string name="age">10+</string>
     <string name="analog_film">Похожие фильмы:</string>
     <string name="error">Ошибка</string>
+    <string name="year">Год</string>
+    <string name="genres">Жарн</string>
+    <string name="rating">Рейтинг:</string>
+    <string name="thriller">Триллер</string>
+    <string name="years">year</string>
 </resources>

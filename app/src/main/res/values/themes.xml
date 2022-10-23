@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.Searchfilmapp" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryVariant">@color/blue</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
@@ -17,16 +17,27 @@
         <item name="progressBarStyle">@style/ProgressBarHorizontal</item>
         <item name="bottomNavigationStyle">@style/BottomNavigation</item>
         <item name="titleTextStyle">@style/TittleTextStyle</item>
-
     </style>
 
     <!-- Search View Style -->
     <style name="SearchViewMovie" parent="">
-        <item name="elevation">@dimen/large_8dp</item>
         <item name="submitBackground">@color/white</item>
         <item name="queryBackground">@color/white</item>
-        <item name="closeIcon">@drawable/ic_close</item>
+        <item name="closeIcon">@drawable/ic_close_24</item>
         <item name="iconifiedByDefault">false</item>
+    </style>
+
+    <!-- Search View Style -->
+    <style name="SliderRating" parent="">
+        <item name="fontFamily">@font/source_sans_pro</item>
+        <item name="font">@font/source_sans_pro</item>
+        <item name="android:textSize">14sp</item>
+        <item name="thumbRadius">@dimen/large_8dp</item>
+        <item name="trackHeight">@dimen/low_2dp</item>
+        <item name="android:stepSize">1.0</item>
+        <item name="android:valueFrom">0.0</item>
+        <item name="android:valueTo">10.0</item>
+        <item name="values">@array/rating_slider_initial_values</item>
     </style>
 
     <!-- Progress Bar Style -->
