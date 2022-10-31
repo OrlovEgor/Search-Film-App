@@ -11,6 +11,8 @@ import kotlinx.coroutines.channels.onFailure
 import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.onStart
 
 fun RangeSlider.onTouchListenerFlow(): Flow<String> {
     return callbackFlow {
@@ -49,6 +51,29 @@ fun SearchView.queryTextListenerFlow(): Flow<String> {
         this@queryTextListenerFlow.setOnQueryTextListener(listener)
         awaitClose {
             Log.d("TAG", "close QueryTextListenerFlow")
+        }
+    }
+}
+
+fun AutoCompleteTextView.valueGenreChangedFlow(): Flow<String> {
+    return callbackFlow {
+        val textChangedListener = object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+                trySendBlocking(
+                    Genres.values().find {  it.displayName == Genres.valueOf(p0?.toString().orEmpty()).displayName }?.jsonName.orEmpty()
+                ).onFailure { Log.d("TAG", "error textChangedFlow") }
+            }
+        }
+        this@valueGenreChangedFlow.addTextChangedListener(textChangedListener)
+
+        awaitClose {
+            this@valueGenreChangedFlow.removeTextChangedListener(textChangedListener)
         }
     }
 }
