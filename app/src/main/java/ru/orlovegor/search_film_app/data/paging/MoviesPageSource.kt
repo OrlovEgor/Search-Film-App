@@ -4,14 +4,17 @@ import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import retrofit2.HttpException
-import ru.orlovegor.search_film_app.data.remote.MovieApi
+import ru.orlovegor.search_film_app.data.remote.networking.MovieApi
 import ru.orlovegor.search_film_app.data.remote.models.MovieDto
 import java.io.IOException
 
 
 class MoviesPageSource(
     private val movieApi: MovieApi,
-    private val query: String
+    private val tittle: Map<String, String>,
+    private val year: Map<String, String>,
+    private val genre: Map<String, String>,
+    private val rating: Map<String, String>
 ) : PagingSource<Int, MovieDto>() {
     override fun getRefreshKey(state: PagingState<Int, MovieDto>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
@@ -20,13 +23,10 @@ class MoviesPageSource(
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieDto> {
-        if (query.isEmpty()) {
-            return LoadResult.Page(emptyList(), prevKey = null, nextKey = null)
-        }
         try {
             val page = params.key ?: INITIAL_PAGE_NUMBER
             val pageSize = params.loadSize.coerceAtMost(MovieApi.MAX_PAGE_SIZE)
-            val response = movieApi.getMovieByTittle(query, page, pageSize)
+            val response = movieApi.getMovies(tittle, year, genre, rating, page, pageSize)
 
                 val moviesDto = checkNotNull(response.body()).listMovieDto
                 val nextKey = if (moviesDto.size < pageSize) null else page + 1
