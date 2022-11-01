@@ -4,10 +4,10 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryVariant">@color/blue</item>
-        <item name="colorOnPrimary">@color/blue</item>
+        <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue</item>
-        <item name="colorSecondaryVariant">@color/blue</item>
+        <item name="colorSecondaryVariant">@color/black</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:ignore="ObsoleteSdkInt" tools:targetApi="l">
@@ -58,6 +58,13 @@
         <item name="itemTextAppearanceInactive">@style/TextBottomNav</item>
         <item name="itemTextAppearanceActive">@style/TextBottomNav</item>
         <item name="itemTextColor">@color/white</item>
+    </style>
+
+    <!-- Button Search style -->
+    <style name="ButtonSearch">
+        <item name="fontFamily">@font/source_sans_pro</item>
+        <item name="font">@font/source_sans_pro</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TextBottomNav" parent="TextAppearance.MaterialComponents.Caption">

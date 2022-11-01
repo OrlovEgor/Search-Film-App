@@ -9,17 +9,17 @@ enum class Genres(
     val  displayName: Int
 ) {
     EMPTY("",R.string.empty_string),
-    COMEDY("komediya", R.string.comedy),
-    ACTION("boevik",R.string.action),
-    DETECTIVE("detektiv",R.string.detective),
-    THRILLER("triller",R.string.thriller),
-    HORROR("uzhasy",R.string.horror),
-    DRAMA("drama",R.string.drama),
-    ADVENTURE("priklyucheniya",R.string.adventure),
-    MILITARY("voennyj",R.string.military),
-    FAMILY("semejnyj",R.string.family),
-    FANTASTIC("fantastika",R.string.fantastic),
-    WESTERN("vestern",R.string.western),
-    ANIME("anime",R.string.anime),
-    SPORT("sport",R.string.sport)
+    COMEDY("комедия", R.string.comedy),
+    ACTION("боевик",R.string.action),
+    DETECTIVE("детектив",R.string.detective),
+    THRILLER("триллер",R.string.thriller),
+    HORROR("ужасы",R.string.horror),
+    DRAMA("драма",R.string.drama),
+    ADVENTURE("приключения",R.string.adventure),
+    MILITARY("военный",R.string.military),
+    FAMILY("семейный",R.string.family),
+    FANTASTIC("фантастика",R.string.fantastic),
+    WESTERN("вестерн",R.string.western),
+    ANIME("аниме",R.string.anime),
+    SPORT("спорт",R.string.sport)
 }
