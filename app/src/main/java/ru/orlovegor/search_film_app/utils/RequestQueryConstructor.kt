@@ -13,15 +13,13 @@ data class  RequestQueryConstructor(
     private val type: QueryType
 ) {
     fun makeQuery(): Map<String,String>{
-        val newMap = linkedMapOf<String, String>()
-        if (query.isNotBlank()) {
-            newMap[FIELD_NAME] = type.name.lowercase()
-            newMap[SEARCH_NAME] = query
+        Log.d("VALUE", " field = ${type.requestValue}, search = query")
+        return if (query.isNotBlank()) {
+            mapOf(FIELD_NAME to type.requestValue, SEARCH_NAME to query)
         } else {
-            newMap[""] = ""
+            emptyMap()
         }
-        Log.d("MAKE REQUEST", "Request = $newMap")
-        return newMap
+
     }
 
     companion object{
