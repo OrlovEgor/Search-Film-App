@@ -17,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/search_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:animateLayoutChanges="true">
@@ -51,18 +52,21 @@
                 android:layout_height="60dp"
                 android:layout_marginStart="@dimen/medium_4dp"
                 android:hint="@string/year"
+                android:overScrollMode="ifContentScrolls"
                 app:layout_constraintEnd_toStartOf="@+id/text_input_genre"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/movie_search_view">
 
                 <AutoCompleteTextView
+                    android:dropDownHeight="320dp"
+                    android:id="@+id/year_text_input"
                     style="@style/DefaultTextStyleLarge"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/medium_4dp"
-                    android:inputType="date"
-                    tools:text="@string/year" />
+                    android:inputType="none"
+                    tools:text="@string/year2022" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -79,6 +83,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/movie_search_view">
 
                 <AutoCompleteTextView
+                    android:id="@+id/genre_input"
                     style="@style/DefaultTextStyleLarge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -103,7 +108,7 @@
                 android:id="@+id/search_view_group"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:constraint_referenced_ids="text_input_year,text_input_genre,rating_slider" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -125,7 +130,7 @@
         android:id="@+id/movie_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/large_8dp"
+        android:paddingTop="@dimen/large_8dp"
         app:layout_constraintBottom_toTopOf="@id/error_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -170,6 +175,5 @@
         android:layout_height="wrap_content"
         android:visibility="gone"
         app:constraint_referenced_ids="error_text, error_button" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
