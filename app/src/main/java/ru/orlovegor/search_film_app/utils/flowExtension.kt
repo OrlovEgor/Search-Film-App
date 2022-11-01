@@ -11,20 +11,16 @@ import kotlinx.coroutines.channels.onFailure
 import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.onStart
 
 fun RangeSlider.onTouchListenerFlow(): Flow<String> {
     return callbackFlow {
         val onTouchListener = object : RangeSlider.OnSliderTouchListener {
             override fun onStartTrackingTouch(slider: RangeSlider) {
             }
-
             override fun onStopTrackingTouch(slider: RangeSlider) {
                 val value = "${slider.values[0]}-${slider.values[1]}"
                 trySendBlocking(value).onFailure { Log.d("TAG", "error onTouchListenerFlow") }
             }
-
         }
         this@onTouchListenerFlow.addOnSliderTouchListener(onTouchListener)
         awaitClose {
@@ -42,11 +38,9 @@ fun SearchView.queryTextListenerFlow(): Flow<String> {
                 ).onFailure { Log.d("TAG", "error QueryTextListenerFlow") }
                 return false
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
                 return false
             }
-
         }
         this@queryTextListenerFlow.setOnQueryTextListener(listener)
         awaitClose {
@@ -59,35 +53,27 @@ fun AutoCompleteTextView.valueGenreChangedFlow(): Flow<String> {
     return callbackFlow {
         val textChangedListener = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
             }
-
             override fun afterTextChanged(p0: Editable?) {
                 trySendBlocking(
-                    Genres.values().find {  it.displayName == Genres.valueOf(p0?.toString().orEmpty()).displayName }?.jsonName.orEmpty()
+                    Genres.values().find { context.getString( it.displayName) == p0?.toString()}?.jsonName.orEmpty()
                 ).onFailure { Log.d("TAG", "error textChangedFlow") }
             }
         }
         this@valueGenreChangedFlow.addTextChangedListener(textChangedListener)
-
         awaitClose {
             this@valueGenreChangedFlow.removeTextChangedListener(textChangedListener)
         }
     }
 }
 
-
 fun AutoCompleteTextView.valueChangedFlow(): Flow<String> {
     return callbackFlow {
         val textChangedListener = object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
             override fun onTextChanged(s: CharSequence?, p1: Int, p2: Int, p3: Int) {
-
             }
-
             override fun afterTextChanged(p0: Editable?) {
                 trySendBlocking(
                     p0?.toString().orEmpty()
@@ -95,7 +81,6 @@ fun AutoCompleteTextView.valueChangedFlow(): Flow<String> {
             }
         }
         this@valueChangedFlow.addTextChangedListener(textChangedListener)
-
         awaitClose {
             this@valueChangedFlow.removeTextChangedListener(textChangedListener)
         }
