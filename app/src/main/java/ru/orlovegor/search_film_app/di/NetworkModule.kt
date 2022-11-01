@@ -11,9 +11,9 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import ru.orlovegor.search_film_app.data.remote.ApiKeyHeader
-import ru.orlovegor.search_film_app.data.remote.ConnectionInterceptor
-import ru.orlovegor.search_film_app.data.remote.MovieApi
+import ru.orlovegor.search_film_app.data.remote.networking.ApiKeyHeader
+import ru.orlovegor.search_film_app.data.remote.networking.ConnectionInterceptor
+import ru.orlovegor.search_film_app.data.remote.networking.MovieApi
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
