@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.withContext
 import ru.orlovegor.search_film_app.data.local.MovieDao
-import ru.orlovegor.search_film_app.data.remote.MovieApi
+import ru.orlovegor.search_film_app.data.remote.networking.MovieApi
 import ru.orlovegor.search_film_app.di.IoDispatcher
 import ru.orlovegor.search_film_app.presentation.models.Movie
 import ru.orlovegor.search_film_app.presentation.models.mapToMovie
