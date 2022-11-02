@@ -67,7 +67,6 @@ class FullDescriptionMovieAdapter(
                     sendMovie?.let { movie -> isFavoriteClick(movie, false) }
                 }
 
-                initList(similarMovieAdapter)
             }
         }
 
@@ -86,6 +85,7 @@ class FullDescriptionMovieAdapter(
                     .into(binding.posterImage)
 
                 similarMovieAdapter.submitList(movie.similarMovie)
+                initList(similarMovieAdapter)
             }
         }
 
