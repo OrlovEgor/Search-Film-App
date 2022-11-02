@@ -2,6 +2,7 @@ package ru.orlovegor.search_film_app.presentation.full_description
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
@@ -32,8 +33,10 @@ class FullDescriptionFragment : Fragment(R.layout.fragment_full_description) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initList()
         observeViewModelState()
+        Log.d("FULL", "onViewCreated")
     }
 
     private fun observeViewModelState() {
@@ -46,7 +49,7 @@ class FullDescriptionFragment : Fragment(R.layout.fragment_full_description) {
         lifecycleScope.launchWhenStarted {
             viewModel.movie.collectLatest { movie ->
                 scrollRwToTopAfterLoadData()
-                fullDescriptionMovieAdapter.setMovies(listOf(movie))
+                fullDescriptionMovieAdapter.setMovies(movie)
             }
         }
         lifecycleScope.launchWhenStarted {
@@ -54,7 +57,6 @@ class FullDescriptionFragment : Fragment(R.layout.fragment_full_description) {
                 makeSnack(errorMessage)
             }
         }
-
     }
 
     private fun makeSnack(@StringRes message: Int) {

@@ -1,5 +1,6 @@
 package ru.orlovegor.search_film_app.presentation.full_description
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,12 +20,12 @@ class FullDescriptionViewModel @Inject constructor(
 
 ) : ViewModel() {
 
-    private val _movie = MutableSharedFlow<Movie>()
+    private val _movie = MutableStateFlow<List<Movie>>(listOf())
     private val _movieId = MutableSharedFlow<Long>()
     private val _isProgress = MutableStateFlow(false)
     private val _snackText = MutableSharedFlow<Int>()
 
-    val movie = _movie.asSharedFlow()
+    val movie = _movie.asStateFlow()
     val isProgress = _isProgress.asStateFlow()
     val error = _snackText.asSharedFlow()
 
@@ -41,7 +42,7 @@ class FullDescriptionViewModel @Inject constructor(
                 _isProgress.value = true
                 when (val data = fullDescriptionRepository.getFullDescriptionMovieById(it)) {
                     is ResultWrapper.Success -> {
-                        _movie.emit(data.value)
+                        _movie.emit(listOf(data.value))
                     }
                     is ResultWrapper.Error -> {
                         _snackText.emit(R.string.connection_error)
@@ -75,6 +76,11 @@ class FullDescriptionViewModel @Inject constructor(
 
     private suspend fun errorDatabaseText(isSuccess: Boolean) {
         if (!isSuccess) _snackText.emit(R.string.error)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("FULL", "DESTROY")
     }
 
     companion object {
