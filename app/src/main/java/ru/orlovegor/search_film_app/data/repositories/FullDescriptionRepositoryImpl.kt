@@ -5,8 +5,7 @@ import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.withContext
 import ru.orlovegor.search_film_app.data.local.MovieDao
 import ru.orlovegor.search_film_app.data.remote.networking.MovieApi
@@ -67,15 +66,34 @@ class FullDescriptionRepositoryImpl@Inject constructor(
         }
     }
 
+    override  fun getMoviesTest(): Flow<List<Movie>> {
+       return movieDao.getMovies().onEach { Log.d("TEST", "Stert repo getmoviesTesr") }
+            .map { movies -> movies.map { it.mapToMovie() } }
+
+    }
+
+    }
+       /* return try {
+            Log.d("TEST", "Stert repo getmoviesTesr")
+            movieDao.getMovies()
+                .map { movies -> movies.map { it.mapToMovie() } }
+
+        } catch (t: Throwable) {
+            Log.d("TEST", "getLocalMovie message: ${t.message}")
+            emptyFlow<List<Movie>>()
+        }
+    }*/
+
     private fun checkMovieForFavorites(local: List<Movie>, movie: Movie): Movie {
         val isFavorite = local.map { it.id }.contains(movie.id)
         return if (isFavorite) {
-            movie.copy(isFavorite = true)
+            //movie
+           movie.copy(isFavorite = true)
         } else {
             movie
         }
     }
-}
+
 
 
 

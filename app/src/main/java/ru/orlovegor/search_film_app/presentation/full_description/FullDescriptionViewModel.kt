@@ -5,6 +5,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.orlovegor.search_film_app.R
@@ -24,16 +25,48 @@ class FullDescriptionViewModel @Inject constructor(
     private val _movieId = MutableSharedFlow<Long>()
     private val _isProgress = MutableStateFlow(false)
     private val _snackText = MutableSharedFlow<Int>()
+    private val _movieFavorite = fullDescriptionRepository.getMoviesTest()
 
     val movie = _movie.asStateFlow()
     val isProgress = _isProgress.asStateFlow()
     val error = _snackText.asSharedFlow()
 
     init {
+
+        // _movieFavorite.onEach { Log.d("TEST", "startViewModel init ") }.launchIn(viewModelScope)
         load()
         viewModelScope.launch {
             stateNavArgs.get<Long>(NAV_ARG_KEY_MOVIE_ID)?.let { _movieId.emit(it) }
         }
+
+        viewModelScope.launch {
+            // checkFavorite()
+            ggg()
+        }
+
+
+    }
+
+    suspend fun ggg() {
+        _movieFavorite.onEach { Log.d("TEST", "startViewModel  start ggg") }
+            .onEach {
+
+
+            }
+
+            //.onEach { _movie.emit(emptyList()) }
+            .onEach {
+                val id = stateNavArgs.get<Long>(NAV_ARG_KEY_MOVIE_ID)
+                Log.d("TEST", "startViewModel111  value = ${movie.value}")
+                if (it.map { movies -> movies.id }.contains(id)) {
+                    Log.d("TEST", "startViewModel  True")
+
+                    _movie.value = listOf( it.find { it.id == id }!!.copy(isFavorite = true))
+                } else {
+
+                }
+            }
+            .launchIn(viewModelScope)
     }
 
     private fun load() {
@@ -55,6 +88,26 @@ class FullDescriptionViewModel @Inject constructor(
             .onEach { _isProgress.value = false }
             .launchIn(viewModelScope)
     }
+
+    suspend fun checkFavorite(): Job {
+        Log.d("TEST", "startViewModel checkFavorite")
+        val movieId = _movieId.map { it }
+            .first()
+
+        return _movieFavorite
+            .onEach {
+                Log.d("TEST", "startViewModel Favorite Flow")
+            }
+            .onEach { moviesFavorite ->
+                if (moviesFavorite.map { movie -> movie.id }.contains(movieId)) {
+                    _movie.emit(listOf(_movie.value.first().copy(isFavorite = false)))
+                } else _movie.emit(listOf(_movie.value.first().copy(isFavorite = false)))
+            }.launchIn(viewModelScope)
+
+        /* val iss = _movieFavorite.map {
+                moviesFavorite -> moviesFavorite.map { movie -> movie.id }.contains(movieId) }*/
+    }
+
 
     fun isFavoriteHandleState(movie: Movie, isFavorite: Boolean) {
         viewModelScope.launch {

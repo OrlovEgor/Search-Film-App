@@ -50,6 +50,7 @@ class MovieSearchViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
+
     fun getQueryData(
         name: Flow<String>,
         year: Flow<String>,
