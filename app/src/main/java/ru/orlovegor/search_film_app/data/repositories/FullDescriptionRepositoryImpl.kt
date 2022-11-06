@@ -26,10 +26,7 @@ class FullDescriptionRepositoryImpl@Inject constructor(
     override suspend fun getFullDescriptionMovieById(movieId: Long): ResultWrapper<Movie> =
         withContext(dispatcher) {
             safeApiCall {
-                checkMovieForFavorites(
-                    getLocalMovies(),
                     movieApi.getFullDescriptionMovie(movieId).mapToMovie(context)
-                )
             }
         }
 
@@ -66,32 +63,8 @@ class FullDescriptionRepositoryImpl@Inject constructor(
         }
     }
 
-    override  fun getMoviesTest(): Flow<List<Movie>> {
-       return movieDao.getMovies().onEach { Log.d("TEST", "Stert repo getmoviesTesr") }
-            .map { movies -> movies.map { it.mapToMovie() } }
+    override  fun getMoviesTest(): Flow<List<Long>> = movieDao.getMoviesId()
 
-    }
-
-    }
-       /* return try {
-            Log.d("TEST", "Stert repo getmoviesTesr")
-            movieDao.getMovies()
-                .map { movies -> movies.map { it.mapToMovie() } }
-
-        } catch (t: Throwable) {
-            Log.d("TEST", "getLocalMovie message: ${t.message}")
-            emptyFlow<List<Movie>>()
-        }
-    }*/
-
-    private fun checkMovieForFavorites(local: List<Movie>, movie: Movie): Movie {
-        val isFavorite = local.map { it.id }.contains(movie.id)
-        return if (isFavorite) {
-            //movie
-           movie.copy(isFavorite = true)
-        } else {
-            movie
-        }
     }
 
 

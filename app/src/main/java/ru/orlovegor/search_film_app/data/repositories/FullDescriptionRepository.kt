@@ -13,6 +13,6 @@ interface FullDescriptionRepository {
 
   suspend fun removeMovie(movie: Movie): Boolean
 
-   fun getMoviesTest(): Flow<List<Movie>>
+   fun getMoviesTest(): Flow<List<Long>>
 
 }

@@ -2,7 +2,6 @@ package ru.orlovegor.search_film_app.presentation.full_description
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
@@ -26,7 +25,7 @@ class FullDescriptionFragment : Fragment(R.layout.fragment_full_description) {
     private val fullDescriptionMovieAdapter by lazy(LazyThreadSafetyMode.NONE) {
         FullDescriptionMovieAdapter(
             { movieId -> viewModel.loadSimilarMovieFullDescription(movieId) },
-            { movie, isFavorite -> viewModel.isFavoriteHandleState(movie, isFavorite) },
+            { movie, isFavorite -> viewModel.isFavoriteStateChange(movie, isFavorite) },
             requireContext()
         )
     }
@@ -36,7 +35,6 @@ class FullDescriptionFragment : Fragment(R.layout.fragment_full_description) {
 
         initList()
         observeViewModelState()
-        Log.d("FULL", "onViewCreated")
     }
 
     private fun observeViewModelState() {
