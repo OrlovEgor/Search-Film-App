@@ -15,4 +15,8 @@ interface MovieDao {
 
     @Delete
    suspend fun deleteMovie(movie: MovieLocal)
+
+   @Query("select ${MovieDatabaseContract.Columns.ID}  from ${MovieDatabaseContract.TABLE_NAME}")
+   fun getMoviesId(): Flow<List<Long>>
+
 }

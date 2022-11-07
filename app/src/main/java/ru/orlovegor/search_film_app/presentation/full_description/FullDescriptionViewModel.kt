@@ -1,11 +1,9 @@
 package ru.orlovegor.search_film_app.presentation.full_description
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.orlovegor.search_film_app.R
@@ -21,6 +19,7 @@ class FullDescriptionViewModel @Inject constructor(
 
 ) : ViewModel() {
 
+    private val _loadMovie = MutableSharedFlow<Movie>()
     private val _movie = MutableStateFlow<List<Movie>>(listOf())
     private val _movieId = MutableSharedFlow<Long>()
     private val _isProgress = MutableStateFlow(false)
@@ -33,39 +32,28 @@ class FullDescriptionViewModel @Inject constructor(
 
     init {
 
-        // _movieFavorite.onEach { Log.d("TEST", "startViewModel init ") }.launchIn(viewModelScope)
         load()
         viewModelScope.launch {
             stateNavArgs.get<Long>(NAV_ARG_KEY_MOVIE_ID)?.let { _movieId.emit(it) }
         }
-
-        viewModelScope.launch {
-            // checkFavorite()
-            ggg()
-        }
-
-
+        isFavoriteStateHandle()
     }
 
-    suspend fun ggg() {
-        _movieFavorite.onEach { Log.d("TEST", "startViewModel  start ggg") }
-            .onEach {
+    private fun isFavoriteStateHandle() {
+        combine(_loadMovie, _movieFavorite) { movie, favorites ->
+            Pair(movie, favorites.contains(movie.id))
+        }
+            .onEach { movieToIsFavorite ->
 
-
+                _movie.emit(
+                    listOf(
+                        movieToIsFavorite.first.copy(
+                            isFavorite = movieToIsFavorite.second
+                        )
+                    )
+                )
             }
-
-            //.onEach { _movie.emit(emptyList()) }
-            .onEach {
-                val id = stateNavArgs.get<Long>(NAV_ARG_KEY_MOVIE_ID)
-                Log.d("TEST", "startViewModel111  value = ${movie.value}")
-                if (it.map { movies -> movies.id }.contains(id)) {
-                    Log.d("TEST", "startViewModel  True")
-
-                    _movie.value = listOf( it.find { it.id == id }!!.copy(isFavorite = true))
-                } else {
-
-                }
-            }
+            .catch { _snackText.emit(R.string.error) }
             .launchIn(viewModelScope)
     }
 
@@ -75,7 +63,8 @@ class FullDescriptionViewModel @Inject constructor(
                 _isProgress.value = true
                 when (val data = fullDescriptionRepository.getFullDescriptionMovieById(it)) {
                     is ResultWrapper.Success -> {
-                        _movie.emit(listOf(data.value))
+                        _loadMovie.emit(data.value)
+
                     }
                     is ResultWrapper.Error -> {
                         _snackText.emit(R.string.connection_error)
@@ -89,27 +78,7 @@ class FullDescriptionViewModel @Inject constructor(
             .launchIn(viewModelScope)
     }
 
-    suspend fun checkFavorite(): Job {
-        Log.d("TEST", "startViewModel checkFavorite")
-        val movieId = _movieId.map { it }
-            .first()
-
-        return _movieFavorite
-            .onEach {
-                Log.d("TEST", "startViewModel Favorite Flow")
-            }
-            .onEach { moviesFavorite ->
-                if (moviesFavorite.map { movie -> movie.id }.contains(movieId)) {
-                    _movie.emit(listOf(_movie.value.first().copy(isFavorite = false)))
-                } else _movie.emit(listOf(_movie.value.first().copy(isFavorite = false)))
-            }.launchIn(viewModelScope)
-
-        /* val iss = _movieFavorite.map {
-                moviesFavorite -> moviesFavorite.map { movie -> movie.id }.contains(movieId) }*/
-    }
-
-
-    fun isFavoriteHandleState(movie: Movie, isFavorite: Boolean) {
+    fun isFavoriteStateChange(movie: Movie, isFavorite: Boolean) {
         viewModelScope.launch {
             if (isFavorite) {
                 val isInsert = fullDescriptionRepository.insertMovie(movie)
@@ -129,11 +98,6 @@ class FullDescriptionViewModel @Inject constructor(
 
     private suspend fun errorDatabaseText(isSuccess: Boolean) {
         if (!isSuccess) _snackText.emit(R.string.error)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        Log.d("FULL", "DESTROY")
     }
 
     companion object {
